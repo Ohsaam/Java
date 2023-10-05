@@ -55,10 +55,15 @@ class Dept
 public class DeptMain {
 
 	public static void main(String[] args) {
+		
 		Dept dept = new Dept();
 		Dept dept1 = new Dept(10,"개발1팀","부산");
 		System.out.println(dept.getDeptno()); // 0
-		System.out.println(dept1.getDeptno()); // 10
+		dept1.setDeptno(100);
+		dept1.setName("운영팀");
+		dept1.setLoc("인천광역시");
+		
+		System.out.println(dept1.getDeptno() +":"+dept1.getName()+": "+dept1.getLoc());
 	}
 
 }
