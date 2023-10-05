@@ -2,29 +2,23 @@ package com.week3;
 
 class F
 {
+	int b;
+	FMain fm = new FMain(this);
+	
+	}
+
+public class FMain {
 	private int age;
 	private String name;
 	private String loc;
 	
 	
-	public F(int age, String name, String loc)
-	{
-		this.age = age;
-		this.name = name;
-		this.loc = loc;
-		FMain fm = new FMain(this);
-	}
-	
-	}
-
-public class FMain {
-
-	
-	
 	
 	public FMain(F f)
 	{
+		f.b = 20;
 		System.out.println(f);
+		System.out.println(f.b);
 	}
 	
 	public FMain()
