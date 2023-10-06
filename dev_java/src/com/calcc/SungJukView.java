@@ -1,5 +1,4 @@
-package com.calc;
-
+package com.calcc;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -17,9 +16,11 @@ import javax.swing.table.DefaultTableModel;
 public class SungJukView implements ActionListener {
 	
 	String col[] = { "이름", "오라클", "자바", "HTML", "총점", "평균", "학점", "석차" }; // 컬럼명
-																			// 생성
+	Calclogic cal = new Calclogic(this);																		// 생성
 	int p_num = 0; // 입력 받을 사람수 저장할 변수
 
+	//선언부 에서 SungJukView 생성자 생성
+	
 	DefaultTableModel dtm;
 	JTable table; // = new JTable(value, col); 테이블
 	JScrollPane jsp; // = new JScrollPane(table); 스크롤
@@ -44,12 +45,16 @@ public class SungJukView implements ActionListener {
 	JTextField jt_java = new JTextField(6);
 	JTextField jt_html = new JTextField(6);
 	
+	JTextField total = new JTextField(6);
+	JTextField avg = new JTextField(6);
+	JTextField grade = new JTextField(6);
+	JTextField rank = new JTextField(6);
+	
+	
 	
 	
 	JButton jbt_process = new JButton("점수계산");
 	JButton jbt_exit = new JButton("종료");
-	
-	
 	
 
 	public void initDisplay() {
@@ -60,6 +65,7 @@ public class SungJukView implements ActionListener {
 
 		jp_center.setLayout(new BorderLayout(0, 20));
 
+		// 버튼 동작 등록
 		
 		jbt_clear.addActionListener(this); // 표지우기
 		jbt_selectDelRow.addActionListener(this); //선택된 행만 지우기 
@@ -113,51 +119,23 @@ public class SungJukView implements ActionListener {
 		//이벤트가 발생한 컴포넌트의 주소번지 가져오기 - 어떤 버튼을 눌렀나?
 		Object obj = ae.getSource();
 		
-		
 
 	if(obj==jbt_process)
 	{
-		p_num=dtm.getRowCount();     //계산할때 인원수는 현재 테이블의 행 숫자이므로
-		String[][] Student = new String[col.length][col.length];
-		// 중간에서 경유하자 - 클래스를 선언해서 
-		
-		
-		}
-
-		
-		/*
-		 * getValueAt(세로인덱스, 가로인덱스) : 프로그래머가 원하는 위치의 데이터를 가져오는 메소드다.
-		 * setValueAt(바꿀 데이터, 세로인덱스, 가로인덱스) : 프로그래머가 원하는 위치의 데이터를 변경해주는 메소드다.
-		 */
-//		dtm.getValueAt(0, 0);
-//		dtm.setValueAt(obj, p_num, p_num);
+		//p_num=dtm.getRowCount();     //계산할때 인원수는 현재 테이블의 행 숫자이므로
+		cal.calcTable();
 	}
+	
+	
 	else if(obj==jbt_add)
 	{
-		Score sc = new Score();
 		String input[] = new String[col.length];    //사용자값 저장할 배열 선언, col배열길이만큼
 		input[0]=jt_name.getText();       //이름 input[0]에 저장
 		input[1]=jt_oracle.getText();      //오라클점수
 		input[2]=jt_java.getText();        //자바점수
 		input[3]=jt_html.getText();      //html점수
 		
-		int javaScore = Integer.parseInt(jt_java.getText());
-		int htmlScore = Integer.parseInt(jt_html.getText());
-		int Oracle = Integer.parseInt(jt_oracle.getText());
-		
-		int avgScore = sc.AvgScore(Oracle,htmlScore, javaScore); // avg에 값을 담는다.
-		
-		
-		
-		
-		dtm.addRow(input); //row를 추가하는 부분
-		
-		
-		/*
-		 * 1. 사용자로 받아 온 input 값을 int로 바꾼다. 
-		 * 2. 형변환한 값을 총점, 평균, 학점, 석차 로 나누어 계산한다. -> 클래스 나눠서 사용 할 것.
-		 * 3. input 배열 1-3까지 나눠서 계산한다.
-		 */
+		dtm.addRow(input);
 		
 		 //입력값 저장 하고 나서 텍스트입력 칸 다시 초기화 해두기
 		jt_name.setText("");                 
@@ -165,7 +143,9 @@ public class SungJukView implements ActionListener {
 		jt_java.setText("");
 		jt_html.setText("");
 		
+		
 	}
+	
 	else if(obj==jbt_selectDelRow)
 	{	//테이블 선택했을때 .getSelectedRow() 메소드 값은 그 행의 값이 나오고
 		//아무것도 선택 안되어잇을때는 -1을 전달함.
@@ -195,11 +175,13 @@ public class SungJukView implements ActionListener {
 			System.exit(0); //자바 가상머신과 연결이 끊김
     }
 }
-	
 
+	public SungJukView()
+	{
+		initDisplay();
+	}
 	public static void main(String[] args) {
 		JFrame.setDefaultLookAndFeelDecorated(true);
-		SungJukView sj = new SungJukView();
-		sj.initDisplay();
+		new SungJukView();
 	}
 }
