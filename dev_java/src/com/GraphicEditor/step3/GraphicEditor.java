@@ -1,4 +1,4 @@
-package com.GraphicEditor.step2;
+package com.GraphicEditor.step3;
 
 public class GraphicEditor {
 	private static final int ARRAY_LENGTH = 5;
@@ -40,26 +40,10 @@ public class GraphicEditor {
 		 */
 		for(Shape shape : shapes)
 		{
-			if(shape instanceof Rectangle)
-				// 현재 shape이 참조하는 이 대상이 Rectangle 객체로 다운캐스팅 되는지 물어보는거
-				// Rectangle를 참조하면 instanceof를 통해서 True를 발생시키고 그렇게 되면 downcasting이 가능하다라는얘기
-			{
-				/*
-				 * Rectangle rc	= (Rectangle) shape;
-				 * rc.draw(); --> 한줄로 바꿈 
-				 */
-				((Rectangle)shape).drawRectangle();
-			}
-			else if(shape instanceof Ellipse)
-			{
-				((Ellipse)shape).drawEllipse();
-			}
-			else if(shape instanceof Line)
-			{
-//				Line li = (Line)shape;
-//				li.draw();
-				((Line)shape).drawLine();
-			}
+			shape.draw();
+			/*
+			 * 다형성이 구현된 부분 
+			 */
 			
 		}
 		

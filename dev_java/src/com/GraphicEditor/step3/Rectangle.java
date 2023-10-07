@@ -1,7 +1,8 @@
-package com.GraphicEditor.step2;
+package com.GraphicEditor.step3;
 
 public class Rectangle extends Shape{
-	public void drawRectangle()
+	@Override
+	public void draw()
 	{
 		System.out.println("Drawing : Rectangle");
 	}

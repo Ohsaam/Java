@@ -1,6 +1,6 @@
 package com.GraphicEditor.step2;
 
-public class Line {
+public class Line extends Shape{
 	public void drawLine()
 	{
 		System.out.println("Drawing  : Line"); 
