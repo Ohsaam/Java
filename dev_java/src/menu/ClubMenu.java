@@ -2,12 +2,17 @@ package menu;
 
 import java.util.Scanner;
 
+import console.ClubConsole;
+
 public class ClubMenu {
 	private Scanner sc;
+	//클럽 콘솔을 호출하기 위해서 추가하는 것
+	private ClubConsole console;
 	
 	public ClubMenu()
 	{
 		this.sc = new Scanner(System.in);
+		this.console = new ClubConsole();
 	}
 	
 	public void show()
@@ -23,12 +28,15 @@ public class ClubMenu {
 			switch(inputNumber)
 			{
 			case 1:
+				console.register();
 				break;
 			
 			case 2:
+				console.findAll();
 				break;
 				
 			case 3:
+				
 				break;
 				
 			case 4:
@@ -74,6 +82,9 @@ public class ClubMenu {
 		if(menuNumber >= 0 && menuNumber <= 6)
 		{
 			sc.nextLine();
+			/*
+			 * nextLine() 하게되면 해당 버퍼를 지운다.
+			 */
 			return menuNumber;
 		}
 		else
