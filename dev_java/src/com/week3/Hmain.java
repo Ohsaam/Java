@@ -15,7 +15,7 @@ class H
 public class Hmain {
 
 	int b;
-	H hm = null;
+	H h = null;
 	//hm를 쓰고 싶음
 	/*
 	 * 1. 전역변수로 인스턴스화해서 사용한다.
@@ -26,22 +26,20 @@ public class Hmain {
 	
 	public Hmain(H h)
 	{
-		this.hm = hm;
+		this.h = h;
 		b = 20;
 	}
 	
 	public Hmain() {}
 	
-	 void methodA()
-	{
-		
-		System.out.println(hm); //hm를 쓰고 싶음
-	}
+
 	public static void main(String[] args) {
 		
 		H h = new H();
 		Hmain hm = new Hmain(h);
-		System.out.println("==============인자1====");
+		System.out.println("====="
+				+ ""
+				+ "=========인자1====");
 		System.out.println(hm);
 		System.out.println(hm.b);
 		
@@ -62,7 +60,6 @@ public class Hmain {
 		 */
 		
 		
-		hm.methodA(); // null 값 나옴
 	// 생성자라는 곳을 거치게 되면 전역변수 값이 바뀐다.
 
 		
