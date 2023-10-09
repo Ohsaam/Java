@@ -1,6 +1,7 @@
 package console;
 
 import Service.ClubService;
+import Service.ServiceLogicLifeCycle;
 import Service.logic.ClubServiceLogic;
 import entity.TravelClub;
 import util.ConsoleUtil;
@@ -16,7 +17,7 @@ public class ClubConsole {
 		/*
 		 * 이후 변경될 코드입니다.
 		 */
-		this.clubService = new ClubServiceLogic();
+		this.clubService = new ServiceLogicLifeCycle().getClubService();
 	}
 	
 	public void register()

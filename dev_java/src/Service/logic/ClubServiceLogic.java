@@ -105,7 +105,7 @@ public  class ClubServiceLogic implements ClubService{
 		}
 		
 
-		this.index--; //내용을 제거해서 index --
+		this.index--; //내용을 제거해서 index 
 		
 	}
 	
