@@ -36,16 +36,19 @@ public class ClubMenu {
 				break;
 				
 			case 3:
-				
+				console.findId();
 				break;
 				
 			case 4:
+				console.findName();
 				break;
 				
 			case 5:
+				console.modify();
 				break;
 				
 			case 6:
+				console.remove();
 				break;
 				
 			case 0:

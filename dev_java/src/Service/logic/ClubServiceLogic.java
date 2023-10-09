@@ -29,20 +29,55 @@ public  class ClubServiceLogic implements ClubService{
 	}
 
 	@Override
-	public TravelClub[] findByName(String clubName) {
-		// TODO Auto-generated method stub
-		return null;
+	public TravelClub[] findName(String clubName) {
+		TravelClub[] createdClubs = Arrays.copyOfRange(clubs,0, index);
+		TravelClub[] foundClubs = new TravelClub[createdClubs.length];
+		int subIndex = 0;
+		
+		for(TravelClub club : createdClubs)
+		{
+			if(club.getClubName().equals(clubName))
+			{
+				foundClubs[subIndex] = club;
+				subIndex++;
+			}
+		}
+		
+
+		return Arrays.copyOfRange(foundClubs, 0, subIndex);
 	}
 
 	@Override
 	public TravelClub findId(String clubId) {
-		// TODO Auto-generated method stub
-		return null;
+		TravelClub[] createdClubs = Arrays.copyOfRange(clubs,0, index);
+		TravelClub foundClub = null;
+		for(TravelClub club : createdClubs)
+		{
+			if(club.getId().equals(clubId)) {
+				foundClub = club;
+				break;
+			}
+		}
+		return foundClub;
 	}
 
 	@Override
 	public void modify(TravelClub modifyClub) {
-		// TODO Auto-generated method stub
+		// 중요한 것은 바꿔야 되는 파라미터로 넘어오는 modiftClub은 이름과 인트로가 바뀐것.
+		// 배열에 있는 클럽중에 몇번 인덱스에 있는 배열을 바꿔줄것인가를 알아야된다.
+		
+		int foundIndex = 0;
+		
+		for(int i = 0; i<clubs.length; i++)
+		{
+			if(clubs[i].getId().equals(modifyClub.getId()))
+			{
+				foundIndex = i; // 인덱스를 찾음
+				break;
+			}
+		}
+		
+		this.clubs[foundIndex] = modifyClub;
 		
 	}
 

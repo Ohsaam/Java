@@ -27,6 +27,11 @@ public class TravelClub {
 		setClubName(clubName);
 		setIntro(intro);
 		this.foundationDay = DateUtil.today();
+		/*
+		 * this()를 사용하여 객체가 생성될 때 기본 생성자의 초기화 코드가 실행되고, 
+		 * 그런 다음 clubName 및 intro를 설정하고 foundationDay를 설정하여 객체를 초기화한다.
+		 * 
+		 */
 	}
 	
 	public void setClubName(String clubName)
