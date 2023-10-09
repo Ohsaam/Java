@@ -19,6 +19,10 @@ public class ServiceLogicLifeCycle {
 
 	public ClubService getClubService()
 	{
+//		if(clubService == null)
+//		{
+//			clubService = new ServiceLogicLifeCycle();
+//		}
 		return this.clubService;
 	}
 	

@@ -1,14 +1,15 @@
 package console;
 
+import Service.ClubService;
 import Service.ServiceLogicLifeCycle;
 
 public class ClubSubConsole {
 	
-	private ClubSubConsole clubservice;
+	private ClubService clubservice;
 	
 	public ClubSubConsole()
 	{
-		this.clubservice = new ServiceLogicLifeCycle().getClubService();
+		this.clubservice = ServiceLogicLifeCycle.getuniqueInstance().getClubService();
 	}
 
 }

@@ -1,113 +1,60 @@
 package Service.logic;
 
-import java.util.Arrays;
-
+import java.util.List;
 import Service.ClubService;
+import Service.ServiceLogicLifeCycle;
 import entity.TravelClub;
+import store.ClubStore;
+import store.StoreLifeCycle;
 
 public  class ClubServiceLogic implements ClubService{
-	private TravelClub[] clubs;
-	private int index;
+	private ClubStore clubStore;
 
+	
 	public ClubServiceLogic()
 	{
-		this.clubs = new TravelClub[10];
-		this.index = 0;
+		this.clubStore = StoreLifeCycle.getuniqueInstance().requestClubStore();
 	}
+	
 	@Override
 	public void register(TravelClub travelClub) {
-		clubs[index] = travelClub;
-		index++;
+		this.clubStore.create(travelClub); // 맵에다 저장 
+	}
+
+	@Override
+	public List<TravelClub> findAll() {
+		
+		return this.clubStore.retrieveAll();
 		
 	}
 
 	@Override
-	public TravelClub[] findAll() {
+	public List<TravelClub> findName(String clubName) {
 		
-		return Arrays.copyOfRange(clubs, 0, index);
-		
-	}
+		return this.clubStore.retrieveAllByName(clubName);
 
-	@Override
-	public TravelClub[] findName(String clubName) {
-		TravelClub[] createdClubs = Arrays.copyOfRange(clubs,0, index);
-		TravelClub[] foundClubs = new TravelClub[createdClubs.length];
-		int subIndex = 0;
-		
-		for(TravelClub club : createdClubs)
-		{
-			if(club.getClubName().equals(clubName))
-			{
-				foundClubs[subIndex] = club;
-				subIndex++;
-			}
-		}
-		
-
-		return Arrays.copyOfRange(foundClubs, 0, subIndex);
 	}
 
 	@Override
 	public TravelClub findId(String clubId) {
-		TravelClub[] createdClubs = Arrays.copyOfRange(clubs,0, index);
-		TravelClub foundClub = null;
-		for(TravelClub club : createdClubs)
-		{
-			if(club.getId().equals(clubId)) {
-				foundClub = club;
-				break;
-			}
-		}
-		return foundClub;
+		
+		return this.clubStore.retrieve(clubId);
 	}
 
 	@Override
 	public void modify(TravelClub modifyClub) {
-		// 중요한 것은 바꿔야 되는 파라미터로 넘어오는 modiftClub은 이름과 인트로가 바뀐것.
-		// 배열에 있는 클럽중에 몇번 인덱스에 있는 배열을 바꿔줄것인가를 알아야된다.
-		
-		int foundIndex = 0;
-		
-		for(int i = 0; i<clubs.length; i++)
-		{
-			if(clubs[i].getId().equals(modifyClub.getId()))
-			{
-				foundIndex = i; // 인덱스를 찾음
-				break;
-			}
-		}
-		
-		this.clubs[foundIndex] = modifyClub;
-		
+
+		this.clubStore.update(modifyClub);
 	}
+	/*
+	 * modify 메소드는 주어진 클럽 ID를 기반으로 현재 등록된 클럽 중에서 해당 클럽을 찾아서 정보를 수정하는 기능을 수행
+	 * 클럽의 ID를 기반으로 인덱스를 찾아내고, 해당 인덱스의 클럽 정보를 주어진 modifyClub 객체의 정보로 대체
+	 */
 
 	@Override
 	public void remove(String clubId) {
-
-		/*
-		 *  a,b,c,d 에서 b를 삭제한다고 가정했을 때, 
-		 *  a,c,d -> 앞쪽으로 땡기는 작업이 필요하다. index 활용
-		 */
-		int foundIndex = 0;
-		
-		for(int i = 0; i<clubs.length; i++)
-		{
-			if(clubs[i].getId().equals(clubId))
-			{
-				foundIndex = i; // 인덱스를 찾음
-				break;
-			}
-		}
-		// 찾은 인덱스부터 시작 
-		for(int i = foundIndex; i<=this.index; i++)
-		{
-			clubs[i] = clubs[i+1];
-		}
-		
-
-		this.index--; //내용을 제거해서 index 
-		
+		this.clubStore.delete(clubId);
 	}
-	
+		
 
 }

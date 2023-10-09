@@ -6,9 +6,9 @@ public interface ClubService {
 	
 	void register(TravelClub travelClub);
 	
-	TravelClub[] findAll();
-	TravelClub[] findName(String clubName);
-	TravelClub findId(String clubId);
+	List<TravelClub> findAll();
+	List<TravelClub> findName(String clubName);
+	List<TravelClub> findId(String clubId);
 	
 	
 	void modify(TravelClub modifyClub);

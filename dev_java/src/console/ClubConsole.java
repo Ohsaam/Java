@@ -1,5 +1,7 @@
 package console;
 
+import java.util.List;
+
 import Service.ClubService;
 import Service.ServiceLogicLifeCycle;
 import Service.logic.ClubServiceLogic;
@@ -17,8 +19,9 @@ public class ClubConsole {
 		/*
 		 * 이후 변경될 코드입니다.
 		 */
-		this.clubService = new ServiceLogicLifeCycle().getClubService();
+		this.clubService = ServiceLogicLifeCycle.getuniqueInstance().getClubService();
 	}
+	
 	
 	public void register()
 	{
@@ -54,8 +57,8 @@ public class ClubConsole {
 	
 	public void findAll()
 	{
-		TravelClub[] foundClubs = clubService.findAll();
-		if(foundClubs.length == 0)
+		List<TravelClub> foundClubs = clubService.findAll();
+		if(foundClubs.isEmpty())
 		{
 			System.out.println("Empty");
 			return;
@@ -97,7 +100,7 @@ public class ClubConsole {
 	
 	public void findName()
 	{
-		TravelClub[] foundClubs = null;
+		List<TravelClub> foundClubs = null;
 		while(true)
 		{
 			String clubname = consoleutil.getValueOf("Club name to find(0:Club Menu");
@@ -109,7 +112,7 @@ public class ClubConsole {
 			
 			foundClubs = clubService.findName(clubname);
 			
-			if(foundClubs != null && foundClubs.length != 0)
+			if(foundClubs != null && foundClubs.isEmpty())
 			{
 				for(TravelClub club : foundClubs)
 				{
@@ -173,7 +176,10 @@ public class ClubConsole {
 		if(!newName.isEmpty()) // 비어 있지 않다면 
 		{
 			targetClub.setClubName(newName);
+			
 		}
+		
+		
 		String newIntro = consoleutil.getValueOf("New Club Intro(0.Club Menu, Enter, No Change");
 		if(!newIntro.isEmpty())
 		{
@@ -195,11 +201,13 @@ public class ClubConsole {
 		 */
 		TravelClub targetClub = findOne();
 		String confirmStr = consoleutil.getValueOf("Remove this Club? ( Y: yes, N:no)");
+		
 		if(confirmStr.toLowerCase().equals("y") || confirmStr.toLowerCase().equals("yes"))
 		{
 			System.out.println("Remove a club --> " + targetClub.getClubName());
 			clubService.remove(targetClub.getId());
 		}
+		
 		else
 		{
 			System.out.println("Remove cancelled, your club is safe" + targetClub.getClubName());
