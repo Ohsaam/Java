@@ -83,7 +83,29 @@ public  class ClubServiceLogic implements ClubService{
 
 	@Override
 	public void remove(String clubId) {
-		// TODO Auto-generated method stub
+
+		/*
+		 *  a,b,c,d 에서 b를 삭제한다고 가정했을 때, 
+		 *  a,c,d -> 앞쪽으로 땡기는 작업이 필요하다. index 활용
+		 */
+		int foundIndex = 0;
+		
+		for(int i = 0; i<clubs.length; i++)
+		{
+			if(clubs[i].getId().equals(clubId))
+			{
+				foundIndex = i; // 인덱스를 찾음
+				break;
+			}
+		}
+		// 찾은 인덱스부터 시작 
+		for(int i = foundIndex; i<=this.index; i++)
+		{
+			clubs[i] = clubs[i+1];
+		}
+		
+
+		this.index--; //내용을 제거해서 index --
 		
 	}
 	

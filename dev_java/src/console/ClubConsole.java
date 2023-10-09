@@ -161,7 +161,10 @@ public class ClubConsole {
 	{//변경하고자 하는 Travel club를 찾아라.
 		TravelClub targetClub = findOne(); // 사용자로부터 값을 받고
 		String newName = consoleutil.getValueOf("New Club name(0.Club Menu, Enter, No Change");
-		
+		/*
+		 * 사용자에게 새로운 여행 클럽 이름을 입력하도록 요청
+		 * consoleutil 객체를 사용하여 사용자 입력을 받는다
+		 */
 		if(newName.equals("0"))
 		{
 			return;
@@ -175,13 +178,35 @@ public class ClubConsole {
 		{
 			targetClub.setIntro(newIntro);
 		}
-		
+		/*
+		 * 마지막으로 이 코드는 변경된 targetClub를 전달하여 
+		 * 클럽 정보(이름 및 소개)를 수정하기 위해 
+		 * clubService 객체의 modify 메서드를 호출
+		 */
 		clubService.modify(targetClub);
 		System.out.println("Modify Club : " + targetClub.toString());
 	}
 	
 	public void remove()
 	{
+		/*
+		 * 하나의 Club를 찾는 부분을 살펴본다.
+		 */
+		TravelClub targetClub = findOne();
+		String confirmStr = consoleutil.getValueOf("Remove this Club? ( Y: yes, N:no)");
+		if(confirmStr.toLowerCase().equals("y") || confirmStr.toLowerCase().equals("yes"))
+		{
+			System.out.println("Remove a club --> " + targetClub.getClubName());
+			clubService.remove(targetClub.getId());
+		}
+		else
+		{
+			System.out.println("Remove cancelled, your club is safe" + targetClub.getClubName());
+		}
+		/*
+		 * toLowerCase() 메소드를 활용해서 
+		 * confirmStr이 가지고 있는 문자를 전부 소문자로 바꾼다.
+		 */
 		
 	}
 	
