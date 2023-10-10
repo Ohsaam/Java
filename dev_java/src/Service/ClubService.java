@@ -1,5 +1,7 @@
 package Service;
 
+import java.util.List;
+
 import entity.TravelClub;
 
 public interface ClubService {

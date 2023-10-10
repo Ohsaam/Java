@@ -8,6 +8,7 @@ import java.util.Map;
 import entity.TravelClub;
 
 public class ClubMapStore implements ClubStore{
+	
 	private static final String Iterator = null;
 	private Map<String,TravelClub> clubMap;
 

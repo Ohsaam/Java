@@ -38,13 +38,17 @@ public class TimeServer extends Thread {
 	}
 	//서버측에서 CalendarAPI 를 이용해 현재 시간 정보를 반환하는 메소드 설계한다
 	//반환타입과 리턴타입을 결정해 본다.- 파라미터는 필요없다. -리턴타입은 String한다.
-	public String getTime() {
+	private String getTimeStr() {
 		Calendar cal = Calendar.getInstance();
 		int hour = cal.get(Calendar.HOUR_OF_DAY);
 		int min = cal.get(Calendar.MINUTE);
 		int sec = cal.get(Calendar.SECOND);
-		return hour + ":" + min + ":"+sec;
+
+		return (hour < 10 ? "0" + hour : "" + hour) + ":" +
+				(min < 10 ? "0" + min : "" + min)  +	":" +
+				(sec < 10 ? "0" + sec : "" + sec) ;
 	}
+	
 	public static void main(String[] args) {
 		int port = 5000;
 		ServerSocket server = null;
