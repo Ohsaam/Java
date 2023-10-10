@@ -64,67 +64,17 @@ public class ExTableAddBtn extends JFrame {
         editor.setTableModel(dtm);
         jtable.getColumnModel().getColumn(3).setCellEditor(editor);
         
-        TableCell editor2 = new TableCell();
-        jtable.getColumnModel().getColumn(4).setCellEditor(editor2);
+        
         jtable.getColumnModel().getColumn(4).setCellRenderer(new TableCell());
-        editor2.setTableModel(dtm);
-        jtable.getColumnModel().getColumn(4).setCellEditor(new TableCell());
+        editor = new TableCell();
+        editor.setTableModel(dtm); // 객체를 재정의하여 새로운 객체를 넘겨준다.
+        jtable.getColumnModel().getColumn(4).setCellEditor(editor);
 
         jf.add(jsp);
 
         jf.setVisible(true);
     }
  
-//    @SuppressWarnings("rawtypes")
-//    public void JTableRemoveRow() {
-//        int row = jtable.getSelectedRow();
-//        if (row == -1)
-//            return;
-// 
-//        DefaultTableModel model = (DefaultTableModel) jtable.getModel();
-//        model.removeRow(row);
-// 
-//        int rowCnt = jtable.getRowCount();
-// 
-//        if (rowCnt > 0) {
-//            Vector vector = model.getDataVector();
-//            Object[][] objData = new Object[vector.size()][((Vector) vector.get(0)).size()];
-//            for (int i = 0; i < vector.size(); i++) {
-//                Vector vec = (Vector) vector.get(i);
-//                for (int j = 0; j < vec.size(); j++) {
-//                    objData[i][j] = vec.get(j);
-//                }
-//            }
-// 
-//            DefaultTableModel clonModel = new DefaultTableModel(objData, objColNms);
-//            JTable clonTable = new JTable(clonModel);
-// 
-//            jf.getContentPane().removeAll();
-// 
-//            jtable = clonTable;
-//            jsp = new JScrollPane(jtable);
-//            jtable.getColumnModel().getColumn(3).setCellRenderer(new TableCell());
-//            jtable.getColumnModel().getColumn(3).setCellEditor(new TableCell());
-//            jtable.getColumnModel().getColumn(4).setCellRenderer(new TableCell());
-//            jtable.getColumnModel().getColumn(4).setCellEditor(new TableCell());
-// 
-//            jf.add(jsp);
-//            jf.revalidate();
-//            jf.repaint();
-//        } else {
-//            DefaultTableModel clonModel = new DefaultTableModel(null, objColNms);
-//            JTable clonTable = new JTable(clonModel);
-// 
-//            jf.getContentPane().removeAll();
-// 
-//            jtable = clonTable;
-//            jsp = new JScrollPane(jtable);
-// 
-//            jf.add(jsp);
-//            jf.revalidate();
-//            jf.repaint();
-//        }
-//    } // end public void JTableRemoveRow()
  
     class TableCell extends AbstractCellEditor implements TableCellEditor, TableCellRenderer {
         JButton jb;
@@ -135,12 +85,22 @@ public class ExTableAddBtn extends JFrame {
         
         public TableCell() {
             jb = new JButton("출근버튼");
-            jb2 = new JButton("퇴근버튼");
+            jb2 = new JButton("퇴근버튼"); 
+/* 버튼을 2개로 설정되어 있고  if 문으로 --> 조건 분기를 진행한다.
+ * 현재의 시간  Date객체를 기준으로 해서 currentTime 변수에 값을 넣는다.
+ */
             jb.addActionListener(e -> { // 람다식
                 int row = jtable.getSelectedRow();
+  // jtable.getSelectedRow()를 사용하여 현재 선택된 행의 인덱스를 가져온다.
                 if (row != -1) {
                     currentTime = dateFormat.format(new Date(System.currentTimeMillis()));
                     dtm.setValueAt(currentTime, row, 1);
+                    /*
+                     * dateFormat을 사용하여 HH:mm:ss 형식으로 포맷하고 
+                     * dtm.setValueAt(currentTime, row, 1)을 통해
+                     *  해당 행의 두 번째 열(인덱스 1)에 출근 시간을 설정한다.
+                     */
+                    
                 } // 중괄호 누락 수정
             });
             
@@ -163,13 +123,27 @@ public class ExTableAddBtn extends JFrame {
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
                 int row, int column) {
-            return jb;
+        	
+        	if(column == 3)
+        	{
+        		return jb;
+        	}
+        	else if(column == 4)
+        	{
+        		return jb2;
+        	}
+            return null;
         }
  
         @Override
         public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row,
                 int column) {
-            return jb;
+            if (column == 3) {
+                return jb;
+            } else if (column == 4) {
+                return jb2;
+            }
+            return null;
         }
         public void setTableModel(DefaultTableModel dtm) {
             this.dtm = dtm;
