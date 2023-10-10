@@ -16,9 +16,7 @@ public class ClubConsole {
 	public ClubConsole()
 	{
 		this.consoleutil = new ConsoleUtil();
-		/*
-		 * 이후 변경될 코드입니다.
-		 */
+
 		this.clubService = ServiceLogicLifeCycle.getuniqueInstance().getClubService();
 	}
 	
@@ -28,10 +26,7 @@ public class ClubConsole {
 		while(true)
 		{
 			String clubName = consoleutil.getValueOf("Club Name(0.Club Menu)");
-			/*
-			 * 객체를 사용하여 콘솔에서 사용자로부터 값을 입력받는다.
-			 * 용자가 프로그램에 클럽 이름을 제공할 수 있게 해주는 부분이다.
-			 */
+
 			if(clubName.equals("0")) // 돌아가겠다는 의미
 			{
 				return; 
@@ -129,9 +124,6 @@ public class ClubConsole {
 	}
 	
 	
-	/*
-	 * findAll 제외하고 나머지는 사용자로부터 값을 입력 받아야함.
-	 */
 	private TravelClub findOne()
 	{
 		TravelClub foundClub = null;
@@ -165,10 +157,6 @@ public class ClubConsole {
 	{//변경하고자 하는 Travel club를 찾아라.
 		TravelClub targetClub = findOne(); // 사용자로부터 값을 받고
 		String newName = consoleutil.getValueOf("New Club name(0.Club Menu, Enter, No Change");
-		/*
-		 * 사용자에게 새로운 여행 클럽 이름을 입력하도록 요청
-		 * consoleutil 객체를 사용하여 사용자 입력을 받는다
-		 */
 		if(newName.equals("0"))
 		{
 			return;
@@ -185,11 +173,6 @@ public class ClubConsole {
 		{
 			targetClub.setIntro(newIntro);
 		}
-		/*
-		 * 마지막으로 이 코드는 변경된 targetClub를 전달하여 
-		 * 클럽 정보(이름 및 소개)를 수정하기 위해 
-		 * clubService 객체의 modify 메서드를 호출
-		 */
 		clubService.modify(targetClub);
 		System.out.println("Modify Club : " + targetClub.toString());
 	}
@@ -212,10 +195,6 @@ public class ClubConsole {
 		{
 			System.out.println("Remove cancelled, your club is safe" + targetClub.getClubName());
 		}
-		/*
-		 * toLowerCase() 메소드를 활용해서 
-		 * confirmStr이 가지고 있는 문자를 전부 소문자로 바꾼다.
-		 */
 		
 	}
 	
