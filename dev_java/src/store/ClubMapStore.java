@@ -11,11 +11,14 @@ public class ClubMapStore implements ClubStore{
 	
 	private static final String Iterator = null;
 	private Map<String,TravelClub> clubMap;
+	
 
 	public ClubMapStore()
 	{
 		this.clubMap = new HashMap<>();
 	}
+	
+	
 	@Override
 	public void create(TravelClub travelclub) {
 

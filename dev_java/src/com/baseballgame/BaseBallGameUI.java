@@ -17,7 +17,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 public class BaseBallGameUI {
-	
+	//선언부
 	JFrame jf = new JFrame();
 	//이미지를 담은 물리적인 위치 선언하기.
 	String 		imgPath = "D:\\workspace_java\\dev_java\\src\\com\\week2\\";
@@ -48,85 +48,79 @@ public class BaseBallGameUI {
 	JButton jbtn_new 	= new JButton("새게임");
 	JButton jbtn_dap 	= new JButton("정답");
 	JButton jbtn_clear 	= new JButton("지우기");
-	JButton jbtn_exit 	= new JButton("나가기");
-	
-	BaseBallGameLogic bbg = new BaseBallGameLogic(this);
-	BaseBallGameEvent bbe = new BaseBallGameEvent(this);
-	
-	
+	JButton jbtn_exit 	= new JButton("나가기");	
+	//파라미터로 넘어가는 주소번지는 BaseBallGameUI타입이다.
+	BaseBallGameEvent bbgEvent = new BaseBallGameEvent(this);
+	BaseBallGameLogic bbgLogic = new BaseBallGameLogic(this);
+	//생성자
+	BaseBallGameUI(){
+		bbgLogic.ranCom();
+	}
 	//화면을 그려주는 메소드 선언
-		public void initDisplay() {
-			jta_display = new JTextArea();
-			jsp_display = new JScrollPane(jta_display);
-			jta_display.setOpaque(false);
-			jf.setResizable(false);
-			//jf.setContentPane(new BgPanel());
-			//////////////// 툴바에 들어갈 이미지 버튼 추가하기 ///////////////
-			//////////////// 메뉴 바 추가 시작 /////////////////
-			jm_game.add(jmi_new);
-			jm_game.add(jmi_dap);
-			jm_game.add(jmi_clear);
-			jm_game.add(jmi_exit);
-			jm_info.add(jmi_detail);
-			jm_info.add(jmi_create);
-			jmb.add(jm_game);
-			jmb.add(jm_info);
-			//////////////// 메뉴 바 추가  끝   /////////////////
-			System.out.println("initDisplay 호출 성공");
-			//이벤트 소스와 이벤트 처리 클래스를 매핑하는 코드 추가
-			//EventHandler ehandler = new EventHandler();
-			//jtf_user.addActionListener(ehandler);//여기서 this는 자기자신 클래스를 가리킴.-BaseBallGame:내안에 actionPerformed
-			jtf_user.addActionListener(bbe);//여기서 this는 자기자신 클래스를 가리킴.-BaseBallGame:내안에 actionPerformed
-			jbtn_new.addActionListener(bbe);
-			jbtn_dap.addActionListener(bbe);
-			jbtn_clear.addActionListener(bbe);
-			jbtn_exit.addActionListener(bbe);
-			jmi_exit.addActionListener(bbe);
-			jbtn_new.setBackground(new Color(158,9,9));
-			jbtn_new.setForeground(new Color(212,212,212));
-			jbtn_dap.setBackground(new Color(7,84,170));
-			jbtn_dap.setForeground(new Color(212,212,212));
-			jbtn_clear.setBackground(new Color(19,99,57));
-			jbtn_clear.setForeground(new Color(212,212,212));
-			jbtn_exit.setBackground(new Color(54,54,54));
-			jbtn_exit.setForeground(new Color(212,212,212));
-			jp_east.setLayout(new GridLayout(4,1));
-			jp_east.add(jbtn_new);
-			jp_east.add(jbtn_dap);
-			jp_east.add(jbtn_clear);
-			jp_east.add(jbtn_exit);
-			jta_display.setFont(f);
-			jta_display.setBackground(new Color(255,255,200));
-			jta_display.setForeground(new Color(57,109,165));
+	public void initDisplay() {
+		jta_display = new JTextArea();
+		jsp_display = new JScrollPane(jta_display);
+		jta_display.setOpaque(false);
+		jf.setResizable(false);
+		//jf.setContentPane(new BgPanel());
+		//////////////// 툴바에 들어갈 이미지 버튼 추가하기 ///////////////
+		//////////////// 메뉴 바 추가 시작 /////////////////
+		jm_game.add(jmi_new);
+		jm_game.add(jmi_dap);
+		jm_game.add(jmi_clear);
+		jm_game.add(jmi_exit);
+		jm_info.add(jmi_detail);
+		jm_info.add(jmi_create);
+		jmb.add(jm_game);
+		jmb.add(jm_info);
+		//////////////// 메뉴 바 추가  끝   /////////////////
+		System.out.println("initDisplay 호출 성공");
+		//이벤트 소스와 이벤트 처리 클래스를 매핑하는 코드 추가
+		//EventHandler ehandler = new EventHandler();
+		//jtf_user.addActionListener(ehandler);//여기서 this는 자기자신 클래스를 가리킴.-BaseBallGame:내안에 actionPerformed
+		jtf_user.addActionListener(bbgEvent);//여기서 this는 자기자신 클래스를 가리킴.-BaseBallGame:내안에 actionPerformed
+		jbtn_new.addActionListener(bbgEvent);
+		jbtn_dap.addActionListener(bbgEvent);
+		jbtn_clear.addActionListener(bbgEvent);
+		jbtn_exit.addActionListener(bbgEvent);
+		jmi_exit.addActionListener(bbgEvent);
+		jbtn_new.setBackground(new Color(158,9,9));
+		jbtn_new.setForeground(new Color(212,212,212));
+		jbtn_dap.setBackground(new Color(7,84,170));
+		jbtn_dap.setForeground(new Color(212,212,212));
+		jbtn_clear.setBackground(new Color(19,99,57));
+		jbtn_clear.setForeground(new Color(212,212,212));
+		jbtn_exit.setBackground(new Color(54,54,54));
+		jbtn_exit.setForeground(new Color(212,212,212));
+		jp_east.setLayout(new GridLayout(4,1));
+		jp_east.add(jbtn_new);
+		jp_east.add(jbtn_dap);
+		jp_east.add(jbtn_clear);
+		jp_east.add(jbtn_exit);
+		jta_display.setFont(f);
+		jta_display.setBackground(new Color(255,255,200));
+		jta_display.setForeground(new Color(57,109,165));
 
-			jf.setJMenuBar(jmb);
-			jtf_user.setBackground(new Color(255,255,200));
-			jp_center.setBackground(Color.green);
-			jp_east.setBackground(Color.black);
-			jp_center.setLayout(new BorderLayout(0,10));
-			jp_center.add("Center",jsp_display);
-			jp_center.add("South",jtf_user);
-			jta_display.setLineWrap(true);
-			jf.setLayout(new BorderLayout(10,20));
-			jf.add("Center",jp_center);
-			jf.add("East",jp_east);
-			jf.setTitle("야구 숫자 게임 Ver1.0");
-			jf.setSize(400, 300);
-			jf.setVisible(true);
-		}
-		
-		public BaseBallGameUI()
-		{
-			bbg.ranCom();
-		}
-		
-		
-		
+		jf.setJMenuBar(jmb);
+		jtf_user.setBackground(new Color(255,255,200));
+		jp_center.setBackground(Color.green);
+		jp_east.setBackground(Color.black);
+		jp_center.setLayout(new BorderLayout(0,10));
+		jp_center.add("Center",jsp_display);
+		jp_center.add("South",jtf_user);
+		jta_display.setLineWrap(true);
+		jf.setLayout(new BorderLayout(10,20));
+		jf.add("Center",jp_center);
+		jf.add("East",jp_east);
+		jf.setTitle("야구 숫자 게임 Ver1.0");
+		jf.setSize(400, 300);
+		jf.setVisible(true);
+	}////////////////end of initDisplay ///////////////
 	
-		
-		public static void main(String[] args) {
-			BaseBallGameUI ui = new BaseBallGameUI();
-			ui.initDisplay();
-		}
+	
+	public static void main(String[] args) {
+		 BaseBallGameUI bbgUI = new BaseBallGameUI();
+		 bbgUI.initDisplay();
+	}
 
 }

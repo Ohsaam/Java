@@ -1,3 +1,4 @@
+package com.baseballgame;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -62,6 +63,8 @@ public class BaseBallGameView extends JFrame implements ActionListener{
 	JButton jbtn_dap 	= new JButton("정답");
 	JButton jbtn_clear 	= new JButton("지우기");
 	JButton jbtn_exit 	= new JButton("나가기");
+	int my[]  = new int[3];
+	int com[] = new int[3];
 	int cnt = 0;//++cnt 힌트 문장에서 순번을 출력하는 변수
 	//생성자 선언하기
 	BaseBallGameView(){

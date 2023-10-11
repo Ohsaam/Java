@@ -5,23 +5,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.GridLayout;
-import java.awt.Image;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -68,8 +51,11 @@ public class BaseBallGameUI {
 	JButton jbtn_exit 	= new JButton("나가기");	
 	//파라미터로 넘어가는 주소번지는 BaseBallGameUI타입이다.
 	BaseBallGameEvent bbgEvent = new BaseBallGameEvent(this);
+	BaseBallLogic bbgLogic = new BaseBallLogic(this);
 	//생성자
-	
+	BaseBallGameUI(){
+		bbgLogic.ranCom();
+	}
 	//화면을 그려주는 메소드 선언
 	public void initDisplay() {
 		jta_display = new JTextArea();

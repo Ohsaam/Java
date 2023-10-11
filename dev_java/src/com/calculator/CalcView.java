@@ -80,7 +80,7 @@ public class CalcView implements ActionListener{
 			jtf_display.setText("");
 		}
 		else if("=".equals(command)) {//너 = 버튼 누른거야?
-			System.out.println("계산 결과는 얼마");			
+			System.out.println("계산 결과는 얼마");	x		
 			v2 = jtf_display.getText();
 			double d1 = Double.parseDouble(v1);
 			double d2 = Double.parseDouble(v2);

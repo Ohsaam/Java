@@ -1,4 +1,4 @@
-package com.baseballgameClassDiv;
+package com.baseballgame;
 
 public class GMain {
 
