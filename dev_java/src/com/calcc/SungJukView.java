@@ -180,6 +180,8 @@ public class SungJukView implements ActionListener {
 	{
 		initDisplay();
 	}
+	
+	
 	public static void main(String[] args) {
 		JFrame.setDefaultLookAndFeelDecorated(true);
 		new SungJukView();

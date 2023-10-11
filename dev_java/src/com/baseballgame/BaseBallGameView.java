@@ -1,4 +1,3 @@
-package com.week2;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -63,9 +62,12 @@ public class BaseBallGameView extends JFrame implements ActionListener{
 	JButton jbtn_dap 	= new JButton("정답");
 	JButton jbtn_clear 	= new JButton("지우기");
 	JButton jbtn_exit 	= new JButton("나가기");
-	int my[]  = new int[3];
-	int com[] = new int[3];
 	int cnt = 0;//++cnt 힌트 문장에서 순번을 출력하는 변수
+	//생성자 선언하기
+	BaseBallGameView(){
+		ranCom();//이 메소드 딱 한번만 호출된다.
+	}
+	
 	//세자리 임의의 숫자를 채번하는 메소드 구현하기
 	public void ranCom() {
 		Random r = new Random();
@@ -81,7 +83,7 @@ public class BaseBallGameView extends JFrame implements ActionListener{
 	}
 	//사용자가 입력한 값을 판정하는 메소드를 구현해 봅시다.
 	public String account(String user) {
-		if(user.length()!=3) {
+		if(user.length()!=3) {//length명사형은 배열의 원소의 수반환. length()동사형은 문자열의 길이를 반환함
 			return "세자리 숫자를 입력하세요.";
 		}
 		//사용자가 jtf_user에 입력한 숫자는 보기에는 숫자 처럼 보여도 알맹이는 문자열로 
@@ -92,10 +94,26 @@ public class BaseBallGameView extends JFrame implements ActionListener{
 		int ball 	= 0;//볼을 담을 변수 선언
 		//strike와ball을 지역변수로 해야 하는건 매 회차 마다 값이 변해야 하기 때문이다.
 		try {
-			temp = Integer.parseInt(user);
+			temp = Integer.parseInt(user);//안녕 - NumberFormatException발생
 		} catch (NumberFormatException e) {
 			return "숫자만 입력하세요.";
 		}
+		my[0] = temp/100;//256/100=> 2.56 -> 2만 담김
+		my[1] = (temp%100)/10;//십의자리 - 몫 2 나머지 56-> 5.6 -> 5만 담김
+		my[2] = temp%10;//몫: 25 - 6만담김
+		//이 중 for 문 사용해서 자리는 다르더라도 그 숫자가 존재하니? 네-> ball확보됨
+		//네 일때 다시 한번 i ==j가 같은지  비교해서 index값 마저도 동일하면 자리까지도 일치함 - strike++
+		for(int i=0;i<3;i++) {//9가지 경우의 수가 발생
+			for(int j=0;j<3;j++) {
+				if(com[i] == my[j]) {//그 숫자가 존재하니? 네 -ball확보
+					if(i==j) {//자리값도 일치하는 거야? 네 -strike결정됨
+						strike++;
+					}else {//숫자는 있지만 자리는 달라요
+						ball++;
+					}
+				}//end of if
+			}/// end of inner for
+		}//////end of outter for
 		return strike+"스  "+ball+"볼";
 	}
 	
@@ -194,10 +212,15 @@ public class BaseBallGameView extends JFrame implements ActionListener{
 		}
 		//이벤트가 발생한 이벤트 소스의 문자열을 비교하기
 		else if(e.getSource()==jtf_user) {
-
+			jta_display.append(++cnt+"회 : "+jtf_user.getText()+" : "+account(jtf_user.getText())+"\n");
+			jtf_user.setText("");
 		}///////////입력하고 엔터 쳤을 때
 		else if(obj==jmi_dap || "정답".equals(label)) {
-			ranCom();
+			//1-먼저 채번(동사-기능-메소드 호출)하고 그 다음에 com배열에 있는 값을 출력해 준다.
+			//ranCom();
 			jta_display.append("정답은 "+com[0]+com[1]+com[2]+" 입니다.\n");
+			//jta_display.append(com[0]+com[1]+com[2]);//0
 		}
-	}
+	}///////////////end of actionPerformed
+
+}

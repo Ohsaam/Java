@@ -41,6 +41,8 @@ public class MyCalcTemplate implements ActionListener{
 		jf.setSize(400, 500);
 		jf.setVisible(true);
 	}
+	
+	
 	//메인메소드
 	public static void main(String[] args) {
 		new MyCalcTemplate();

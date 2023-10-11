@@ -29,6 +29,7 @@ public class QuackSimulation {
 		qs.methodB(quackBehavior1);
 		Quack quackBehavior2 = new Quack();
 		Squeak quackBehavior3 = new Squeak();
+		
 	    quackBehavior.quack();
 	}
 

@@ -8,4 +8,7 @@ public class CalcLogic {
 	{
 		this.calcView2 = calcView2;
 	}
+	
+	
+	
 }

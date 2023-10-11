@@ -68,7 +68,7 @@ public class ClubConsole {
 	
 	public void findId()
 	{
-		TravelClub foundClub = null;
+		List<TravelClub> foundClub = null;
 		while(true)
 		{
 			String clubId = consoleutil.getValueOf("Club id to find(0:Club Menu");
@@ -126,7 +126,7 @@ public class ClubConsole {
 	
 	private TravelClub findOne()
 	{
-		TravelClub foundClub = null;
+		List<TravelClub> foundClub = null;
 		while(true)
 		{
 			String clubId = consoleutil.getValueOf("Club id to find(0:Club Menu");
