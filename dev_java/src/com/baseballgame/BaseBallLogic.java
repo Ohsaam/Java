@@ -9,21 +9,14 @@ public class BaseBallLogic {
 	int my[]  = new int[3];
 	int com[] = new int[3];//컴터가 채번한 숫자 담기 -BaseBallGameUI or BaseBallGameLogic or BaseBallGameEvent	
 	//단 이와같은 방법을 사용할 때 순환구조에 빠지지 않도록 주의할것.- 제어역행
-	private static BaseBallLogic instance = new BaseBallLogic();
-	
-    public BaseBallLogic() {
-        this.lifeCycle = BaseBallLifeCycle.getInstance();
-    }
-
-    public static BaseBallLogic getInstance() {
-        return instance;
-    }
-	
-	
-	
-	public BaseBallLogic(BaseBallGameUI BaseBallLogic) {
-		this.baseBallGameUI = BaseBallLogic;
+	public BaseBallLogic(BaseBallGameUI baseBallGameUI) {
+	    this.baseBallGameUI = baseBallGameUI;
 	}
+    
+    public BaseBallLogic()
+    {}
+	
+	
 	//세자리 임의의 숫자를 채번하는 메소드 구현하기
 	public void ranCom() {
 		Random r = new Random();

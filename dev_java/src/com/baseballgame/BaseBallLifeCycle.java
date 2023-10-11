@@ -3,6 +3,8 @@ package com.baseballgame;
 public class BaseBallLifeCycle {
     private static BaseBallLifeCycle instance = new BaseBallLifeCycle();
     private BaseBallGameUI baseBallGameUI;
+    private BaseBallLogic baseBallLogic;
+    private BaseBallGameEvent baseBallGameEvent;
 
     private BaseBallLifeCycle() {
         // private 생성자
@@ -12,25 +14,28 @@ public class BaseBallLifeCycle {
         return instance;
     }
 
-    public void setBaseBallGameUI(BaseBallGameUI baseBallGameUI) {
-        this.baseBallGameUI = baseBallGameUI;
+    public void initialize() {
+        baseBallGameUI = new BaseBallGameUI();
+        baseBallLogic = new BaseBallLogic(baseBallGameUI);
+        baseBallGameEvent = new BaseBallGameEvent(baseBallGameUI,baseBallGameUI.gameLogic);
+
+        baseBallGameUI.setGameEvent(baseBallGameEvent);
+        baseBallGameUI.gameEvent = baseBallGameEvent;
     }
 
     public BaseBallGameUI getBaseBallGameUI() {
         return baseBallGameUI;
     }
+
+    public BaseBallGameEvent getBaseBallGameEvent() {
+        return baseBallGameEvent;
+    }
+
+    public BaseBallLogic getBaseBallLogic() {
+        return baseBallLogic;
+    }
+
+    public void startGame() {
+        baseBallGameUI.initDisplay();
+    }
 }
-    
-    /*
-     * 1. 싱글톤 코드로 구현하려고 한다. 
-     * - BaseBallUI -> BaseBallLogic
-     * 						  -> BaseBallGameEvent 로 나뉜다.
-     * 
-     * 나는 UI가 생성하는 객체를 싱글톤으로 관리하려고 한다.
-     * 나의 궁금점-> 그렇게 되면 this로 
-     * 
-     * 
-     * 2. 뭐가 문제인거지?
-     * - 
-     */
-    

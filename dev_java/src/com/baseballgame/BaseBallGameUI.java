@@ -50,16 +50,28 @@ public class BaseBallGameUI {
 	JButton jbtn_clear 	= new JButton("지우기");
 	JButton jbtn_exit 	= new JButton("나가기");	
 	//파라미터로 넘어가는 주소번지는 BaseBallGameUI타입이다.
-	BaseBallGameEvent bbgEvent = new BaseBallGameEvent(this);
-	BaseBallLogic bbgLogic = new BaseBallLogic(this);
+//	BaseBallGameEvent bbgEvent = new BaseBallGameEvent(this);
+//	BaseBallLogic bbgLogic = new BaseBallLogic(this);
+	
+    protected BaseBallLogic gameLogic;
+    protected BaseBallGameEvent gameEvent;
+
+    public void setGameLogic(BaseBallLogic gameLogic) {
+        this.gameLogic = gameLogic;
+    }
+
+    public void setGameEvent(BaseBallGameEvent gameEvent) {
+        this.gameEvent = gameEvent;
+    }
 	//생성자
+    
 	BaseBallGameUI(){
-		bbgLogic.ranCom();
+		 gameLogic = new BaseBallLogic(this);
+	     gameEvent = new BaseBallGameEvent(this, gameLogic);
+	     gameLogic.ranCom();
 	}
 	//화면을 그려주는 메소드 선언
 	public void initDisplay() {
-        BaseBallLifeCycle lifeCycle = BaseBallLifeCycle.getInstance();
-        lifeCycle.setBaseBallGameUI(this);
 		jta_display = new JTextArea();
 		jsp_display = new JScrollPane(jta_display);
 		jta_display.setOpaque(false);
@@ -80,12 +92,12 @@ public class BaseBallGameUI {
 		//이벤트 소스와 이벤트 처리 클래스를 매핑하는 코드 추가
 		//EventHandler ehandler = new EventHandler();
 		//jtf_user.addActionListener(ehandler);//여기서 this는 자기자신 클래스를 가리킴.-BaseBallGame:내안에 actionPerformed
-		jtf_user.addActionListener(bbgEvent);//여기서 this는 자기자신 클래스를 가리킴.-BaseBallGame:내안에 actionPerformed
-		jbtn_new.addActionListener(bbgEvent);
-		jbtn_dap.addActionListener(bbgEvent);
-		jbtn_clear.addActionListener(bbgEvent);
-		jbtn_exit.addActionListener(bbgEvent);
-		jmi_exit.addActionListener(bbgEvent);
+		jtf_user.addActionListener(gameEvent);//여기서 this는 자기자신 클래스를 가리킴.-BaseBallGame:내안에 actionPerformed
+		jbtn_new.addActionListener(gameEvent);
+		jbtn_dap.addActionListener(gameEvent);
+		jbtn_clear.addActionListener(gameEvent);
+		jbtn_exit.addActionListener(gameEvent);
+		jmi_exit.addActionListener(gameEvent);
 		jbtn_new.setBackground(new Color(158,9,9));
 		jbtn_new.setForeground(new Color(212,212,212));
 		jbtn_dap.setBackground(new Color(7,84,170));
@@ -120,9 +132,5 @@ public class BaseBallGameUI {
 	}////////////////end of initDisplay ///////////////
 	
 	
-	public static void main(String[] args) {
-		 BaseBallGameUI bbgUI = new BaseBallGameUI();
-		 bbgUI.initDisplay();
-	}
 
 }
