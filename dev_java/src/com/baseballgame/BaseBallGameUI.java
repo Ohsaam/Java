@@ -51,13 +51,15 @@ public class BaseBallGameUI {
 	JButton jbtn_exit 	= new JButton("나가기");	
 	//파라미터로 넘어가는 주소번지는 BaseBallGameUI타입이다.
 	BaseBallGameEvent bbgEvent = new BaseBallGameEvent(this);
-	BaseBallGameLogic bbgLogic = new BaseBallGameLogic(this);
+	BaseBallLogic bbgLogic = new BaseBallLogic(this);
 	//생성자
 	BaseBallGameUI(){
 		bbgLogic.ranCom();
 	}
 	//화면을 그려주는 메소드 선언
 	public void initDisplay() {
+        BaseBallLifeCycle lifeCycle = BaseBallLifeCycle.getInstance();
+        lifeCycle.setBaseBallGameUI(this);
 		jta_display = new JTextArea();
 		jsp_display = new JScrollPane(jta_display);
 		jta_display.setOpaque(false);

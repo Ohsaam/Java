@@ -1,16 +1,27 @@
 package com.baseballgame;
 import java.util.Random;
-
-import com.baseballgameClassDiv.BaseBallGameUI;
 //게임에 관련된 규칙이나 약속들 - 로직클래스 배치하자
-public class BaseBallGameLogic {
+public class BaseBallLogic {
 	//현재는 null이므로 NullPointerException발동하겠지만 
 	//이문제를 생성자를 통해 해결함
+	private BaseBallLifeCycle lifeCycle;
 	BaseBallGameUI baseBallGameUI = null;
 	int my[]  = new int[3];
 	int com[] = new int[3];//컴터가 채번한 숫자 담기 -BaseBallGameUI or BaseBallGameLogic or BaseBallGameEvent	
 	//단 이와같은 방법을 사용할 때 순환구조에 빠지지 않도록 주의할것.- 제어역행
-	public BaseBallGameLogic(BaseBallGameUI BaseBallLogic) {
+	private static BaseBallLogic instance = new BaseBallLogic();
+	
+    public BaseBallLogic() {
+        this.lifeCycle = BaseBallLifeCycle.getInstance();
+    }
+
+    public static BaseBallLogic getInstance() {
+        return instance;
+    }
+	
+	
+	
+	public BaseBallLogic(BaseBallGameUI BaseBallLogic) {
 		this.baseBallGameUI = BaseBallLogic;
 	}
 	//세자리 임의의 숫자를 채번하는 메소드 구현하기

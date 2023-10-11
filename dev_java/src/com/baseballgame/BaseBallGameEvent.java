@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 public class BaseBallGameEvent implements ActionListener {
 	int cnt = 0;
 	BaseBallGameUI bbgUI = null;
+	private BaseBallLifeCycle lifeCycle;
 	//아래 생성자 호출은 BaseBallGameEvent에서 일어나는게 아니고
 	//BaseBallGameUI에서 생성자 호출이 일어난다.
 	//그때 파라미터 자리에 this를 넣었다.- 그(BaseBallGameUI의 main메소드에서
@@ -47,10 +48,8 @@ public class BaseBallGameEvent implements ActionListener {
 			bbgUI.jtf_user.setText("");
 		}///////////입력하고 엔터 쳤을 때
 		else if(obj==bbgUI.jmi_dap || "정답".equals(label)) {
-			//1-먼저 채번(동사-기능-메소드 호출)하고 그 다음에 com배열에 있는 값을 출력해 준다.
 			//ranCom();
 			bbgUI.jta_display.append("정답은 "+bbgUI.bbgLogic.com[0]+bbgUI.bbgLogic.com[1]+bbgUI.bbgLogic.com[2]+" 입니다.\n");
-			//jta_display.append(com[0]+com[1]+com[2]);//0
 		}
 	}
 

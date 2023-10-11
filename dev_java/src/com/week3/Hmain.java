@@ -3,11 +3,10 @@ package com.week3;
 class H
 {
 	int a;
-	Hmain hm = new Hmain(this);
-
+	
 	H(){} // 디폴트 생성자는 파라미터가 없으니깐 생략해도 JVM이 제공함.
 	
-	
+	Hmain hm = new Hmain(this);
 	
 	
 	}
@@ -15,7 +14,7 @@ class H
 public class Hmain {
 
 	int b;
-	H h = null;
+	H hm = null;
 	//hm를 쓰고 싶음
 	/*
 	 * 1. 전역변수로 인스턴스화해서 사용한다.
@@ -26,20 +25,22 @@ public class Hmain {
 	
 	public Hmain(H h)
 	{
-		this.h = h;
+		this.hm = h;
 		b = 20;
 	}
 	
 	public Hmain() {}
 	
-
+	 void methodA()
+	{
+		
+		System.out.println(hm); //hm를 쓰고 싶음
+	}
 	public static void main(String[] args) {
 		
 		H h = new H();
 		Hmain hm = new Hmain(h);
-		System.out.println("====="
-				+ ""
-				+ "=========인자1====");
+		System.out.println("==============인자1=======================");
 		System.out.println(hm);
 		System.out.println(hm.b);
 		
@@ -50,16 +51,17 @@ public class Hmain {
 		
 		
 		hm = new Hmain();
-		System.out.println("==============재생성====");
-		System.out.println(hm);
-		System.out.println(hm.b);
+		System.out.println("==============재생성===========================");
+		System.out.println(hm); //null
+		System.out.println(hm.b); //0
 		/*
 		 * 0 하고 null이 나오는 이유는 hm을 Hmain에 생성했기 때문에
 		 * 해당 부분은 재정의 하는 동작 자체가 없음.
-		 * 
+		 * 그래서 0하고 null
 		 */
 		
 		
+		hm.methodA(); // null 값 나옴
 	// 생성자라는 곳을 거치게 되면 전역변수 값이 바뀐다.
 
 		
