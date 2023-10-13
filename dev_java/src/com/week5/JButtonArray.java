@@ -27,6 +27,7 @@ public class JButtonArray implements ActionListener{
 	public void initDisplay() {
 		jf.setLayout(new GridLayout(1,4));
 		for(int i=0;i<jbtns.length;i++) {
+			
 			jf.add(jbtns[i]);
 		}
 		jf.setTitle("객체 배열 연습1");

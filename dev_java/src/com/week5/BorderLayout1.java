@@ -20,6 +20,13 @@ public class BorderLayout1 {
 			System.out.println(jbtns[i]);
 		}
 		*/
+		for(int i =0; i<jbtns.length; i++)
+		{
+			jbtns[i] = new JButton(labels[i]);
+			System.out.println(jbtns[i]);
+		}
+
+		
 		jf.add("East",jbtns[0]);
 		jf.add("North",jbtns[3]);
 		jf.add("South",jbtns[2]);
