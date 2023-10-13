@@ -76,7 +76,14 @@ public class DeptManager extends JFrame implements ActionListener{
 			}
 			for(int i = 0; i<deptList.size(); i++)
 			{
+				DeptDTO rdept = deptList.get(i);
 				Vector<Object> v = new Vector<>();
+				v.add(0,rdept.getDeptno());
+				System.out.println(rdept.getDeptno());
+				v.add(1,rdept.getDname());
+				System.out.println(rdept.getDname());
+				v.add(2,rdept.getLoc());
+				System.out.println(rdept.getLoc());
 			}
 			
 		}
@@ -84,5 +91,3 @@ public class DeptManager extends JFrame implements ActionListener{
 		
 	}///////////////////// end of actionPerformed
 
-
-}

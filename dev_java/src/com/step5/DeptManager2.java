@@ -4,7 +4,9 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 
 import javax.swing.JButton;
@@ -17,9 +19,9 @@ import javax.swing.table.DefaultTableModel;
 // ActionListener al = new DeptManager();
 //자바는 단일 상속만 가능하다.- 다중상속은 불가함 - 다중상속의 단점을 보완하기 위해 인터페이스가 제공됨
 //단 인터페이스는 여러개를 implements할 수 있다.(추상클래스, 인터페이스는 설계관점에서 중요함 - 특징, 컨벤션)
-public class DeptManager extends JFrame implements ActionListener{
+public class DeptManager2 extends JFrame implements ActionListener{
 	//선언부
-	List<DeptDTO> deptList = new ArrayList<>();//왜 전역변수로 하는가? 입력|수정|삭제|조회
+	List<Map<String,Object>> deptList = new ArrayList<>();//왜 전역변수로 하는가? 입력|수정|삭제|조회
 	String header[] = {"부서번호","부서명","지역"};
 	String datas[][] = new String[0][0];//2차배열 - 대괄호가 2쌍이 필요함
 	//생성자의 파라미터를 통해서 서로 다른 클래스가 의존관계를 맺고 하나의 기능을 서비스 할 수  있다.
@@ -34,17 +36,33 @@ public class DeptManager extends JFrame implements ActionListener{
 	JButton jbtnDel = new JButton("행삭제");
 	JButton jbtnExit = new JButton("종료");
 	//생성자
-	DeptManager(){
+	DeptManager2(){
 		getDeptList();
 		initDisplay();
 	}////////////// end of DeptManager
-	public List<DeptDTO> getDeptList(){
-		DeptDTO dept = new DeptDTO(10,"영업부","부산");
-		deptList.add(dept);
-		dept = new DeptDTO(20,"개발부","대전");
-		deptList.add(dept);
-		dept = new DeptDTO(30,"운영부","인천");
-		deptList.add(dept);
+	public List<Map<String,Object>> getDeptList(){
+		List<Map<String, Object>> detpList = new ArrayList<>();
+		/*
+		 * value를 Object로 하는 이유는 여러 타입을 받기 위해서임
+		 * Array와 List를 섞어 쓸 수 있음.
+		 */
+		Map<String, Object> map = new HashMap<>();
+		map.put("DEPTNO", 10);
+		map.put("DNAME", "영업부");
+		map.put("LOC", "부산"); // 부산이 how 들어오는가?
+		detpList.add(map);
+		
+		map = new HashMap<>();
+		map.put("DEPTNO", 20);
+		map.put("DNAME", "개발부");
+		map.put("LOC", "대구");
+		detpList.add(map);
+		
+		map.put("DEPTNO", 30);
+		map.put("DNAME", "인사부");
+		map.put("LOC", "서울"); // 부산이 how 들어오는가?
+		detpList.add(map); // 컬럼 3개 (row 담아주는건 - 리스트 )  && (col 담아주는건 Map)
+
 		return deptList;
 	}
 	
@@ -69,7 +87,7 @@ public class DeptManager extends JFrame implements ActionListener{
 	//메인 메소드
 	public static void main(String[] args) {
 		JFrame.setDefaultLookAndFeelDecorated(true);
-		DeptManager dm = new DeptManager();//new JFrame()호출되는 것이다.
+		DeptManager2 dm = new DeptManager2();//new JFrame()호출되는 것이다.
 	}//////////////// end of main ////////////////
 	
 	@Override
