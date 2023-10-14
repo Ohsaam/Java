@@ -1,12 +1,9 @@
 package com.step5;
-
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Vector;
 
 import javax.swing.JButton;
@@ -21,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
 //단 인터페이스는 여러개를 implements할 수 있다.(추상클래스, 인터페이스는 설계관점에서 중요함 - 특징, 컨벤션)
 public class DeptManager2 extends JFrame implements ActionListener{
 	//선언부
-	List<Map<String,Object>> deptList = new ArrayList<>();//왜 전역변수로 하는가? 입력|수정|삭제|조회
+	List<DeptDTO> deptlist = new ArrayList<>();
 	String header[] = {"부서번호","부서명","지역"};
 	String datas[][] = new String[0][0];//2차배열 - 대괄호가 2쌍이 필요함
 	//생성자의 파라미터를 통해서 서로 다른 클래스가 의존관계를 맺고 하나의 기능을 서비스 할 수  있다.
@@ -31,59 +28,63 @@ public class DeptManager2 extends JFrame implements ActionListener{
 	JScrollPane jsp_dept = new JScrollPane(jt_dept);
 	JPanel jp_north = new JPanel();
 	JButton jbtnSelect = new JButton("조회");
-	JButton jbtnDelete = new JButton("삭제");
+	JButton jbtnSAKJE = new JButton("삭제");
 	JButton jbtnAdd = new JButton("행추가");
 	JButton jbtnDel = new JButton("행삭제");
 	JButton jbtnExit = new JButton("종료");
 	//생성자
 	DeptManager2(){
+		// 생성자의 역할 중 하나가 전역변수를 초기화 시키는 것. 그렇기 떄문에 -> 생성자 호출되면 걸쳤다가 -> 전역변수 들리고 -> 내부를 돈다.
 		getDeptList();
 		initDisplay();
 	}////////////// end of DeptManager
-	public List<Map<String,Object>> getDeptList(){
-		List<Map<String, Object>> detpList = new ArrayList<>();
-		/*
-		 * value를 Object로 하는 이유는 여러 타입을 받기 위해서임
-		 * Array와 List를 섞어 쓸 수 있음.
-		 */
-		Map<String, Object> map = new HashMap<>();
-		map.put("DEPTNO", 10);
-		map.put("DNAME", "영업부");
-		map.put("LOC", "부산"); // 부산이 how 들어오는가?
-		detpList.add(map);
-		
-		map = new HashMap<>();
-		map.put("DEPTNO", 20);
-		map.put("DNAME", "개발부");
-		map.put("LOC", "대구");
-		detpList.add(map);
-		
-		map.put("DEPTNO", 30);
-		map.put("DNAME", "인사부");
-		map.put("LOC", "서울"); // 부산이 how 들어오는가?
-		detpList.add(map); // 컬럼 3개 (row 담아주는건 - 리스트 )  && (col 담아주는건 Map)
 
-		return deptList;
+	/*
+	 * deptlist에 DeptDTO 값을 넣어야지 -> 계속 메소드를 사용하면서 재활용 하고 싶어 how?
+	 */
+	public List<DeptDTO> getDeptList()
+	{
+		// DeptDTO가 필요한 이유는 값을 set해야 되기 때문이다. -> 그래야지 밑에 조회를 눌렀을 때 값이 뜬다.
+		// 언제까지 set 써서 값 넣을래 -> 할 수 있는 방법이 있다. -> 생성자에다가 처음에 대입할 때 하면  된다.
+		DeptDTO deptDTO = new DeptDTO(20,"오지환","인천");
+		// add 해야지 -> 또 "재정의" 해서 -> 하게 되면 업데이트가 된다.
+		deptlist.add(deptDTO);// 0번 인덱스에 해당 값이 저장된다. -> 이 줄이 넘어가면 1번 인덱스로 바뀌게 된다
+		deptDTO = new DeptDTO(23,"김수진","서울");
+		deptlist.add(deptDTO);
+		deptDTO = new DeptDTO(25,"김유진","성남");
+		deptlist.add(deptDTO);
+		
+		return deptlist;
+		/*
+		 * 20,"오지환","인천" --> 0
+		 * 23,"김수진","서울" --> 1
+		 * 25,"김유진","성남" --> 2
+		 */
+		
+		
 	}
+	
 	
 	//화면 처리부
 	public void initDisplay() {
 		jbtnSelect.addActionListener(this);
-		jbtnDelete.addActionListener(this);
 		jbtnAdd.addActionListener(this);
-		jbtnDelete.addActionListener(this);
+		jbtnDel.addActionListener(this);
+		jbtnExit.addActionListener(this);
+		jbtnSAKJE.addActionListener(this);
+		
 		jp_north.setLayout(new FlowLayout(FlowLayout.LEFT));
 		jp_north.add(jbtnSelect);
-		jp_north.add(jbtnDelete);
 		jp_north.add(jbtnAdd);
 		jp_north.add(jbtnDel);
 		jp_north.add(jbtnExit);
+		jp_north.add(jbtnSAKJE);
+		
 		this.add("North", jp_north);
 		this.add("Center", jsp_dept);
 		this.setSize(500, 400);//this:DeptManager
 		this.setVisible(true);
 	}//////////// end of initDisplay  /////////////
-	
 	//메인 메소드
 	public static void main(String[] args) {
 		JFrame.setDefaultLookAndFeelDecorated(true);
@@ -95,96 +96,76 @@ public class DeptManager2 extends JFrame implements ActionListener{
 		System.out.println("actionPerformed호출은 반드시 addActionListener가 있어야 됨");
 		Object obj = e.getSource();
 		
-		if(obj == jbtnDel)
+		if(obj == jbtnSAKJE)
 		{
-			int index = jt_dept.getSelectedRow();//사용자가 선택한 로우의 index값을 반환함
-			if(index<0) {//-1반환(EOF)
-				JOptionPane.showMessageDialog(this,"삭제할 행을 선택하시오.","INFO", JOptionPane.INFORMATION_MESSAGE);
-				return;//메소드 탈출
-			}
-			else
+			int index = jt_dept.getSelectedRow();
+			
+			if(index < 0)
 			{
-				dtm_dept.removeRow(index);
+				System.out.println("index가 0 이하이입니다.");
 			}
-		}
-		
-		
-		else if(obj == jbtnAdd)
-		{
-			Object addRow2[] = new Object[3];
-			dtm_dept.addRow(addRow2);
-		}
-		
-		
-		//너 삭제 할거니?
-		else if(obj == jbtnDelete) {
-			int index = jt_dept.getSelectedRow();//사용자가 선택한 로우의 index값을 반환함
-			if(index<0) {//-1반환(EOF)
-				JOptionPane.showMessageDialog(this,"삭제할 데이터를 선택하시오.","INFO", JOptionPane.INFORMATION_MESSAGE);
-				return;//메소드 탈출
-			}
-			//여기로 못오게 함
 			else {
-				System.out.println(index); // 여기서 Object는 DeptDTO
-				DeptDTO rdept = deptList.remove(index);
-				System.out.println(rdept+","+"rdept.getDeptno()"+rdept.getDeptno());
-				if(rdept != null)
-				{
-					JOptionPane.showMessageDialog(this,"삭제 성공하였습니다.","INFO", JOptionPane.INFORMATION_MESSAGE);
-					refreshData();
-					
-				}
-				else
-				{
-					JOptionPane.showMessageDialog(this,"삭제가 실패하였습니다.","INFO", JOptionPane.INFORMATION_MESSAGE);
-					return;
-				
-				}
-				//JOptionPane.showMessageDialog(this,"삭제 성공하였습니다.","INFO", JOptionPane.INFORMATION_MESSAGE);
+				// 리스트에서 값을 제거해야함. 그래야 값이 빠짐 
+				deptlist.remove(index);
+				refresh();
 			}
+			
 		}
-
 		
+
 		//너 조회버튼 누른거야?
 		else if(obj == jbtnSelect) {
-			System.out.println("조회버튼 클릭");//log
-			//웹 개발이더라도 html이 데이터를 쥘수는 없다
-			//html과 자바코드를 섞어쓰기가 가능한가? - 불가 - jsp공부함  - 자바자료구조를 JSON형식으로 넘기기
-			//dtm_dept는 실제 데이터를 포용함
-			//JTable은 클릭이벤트 같은 것은 가능함 - 실제 데이터를 쥐고 있지 못함
-			//getRowCount는 데이터의 로우 수 반환 - 3건
-			while(dtm_dept.getRowCount()>0) {//dtm은 데이터셋(자바측)받는 클래스이다.
-				dtm_dept.removeRow(0);//0번째 로우를 지우는 이유는 로우가 삭제 될때 마다 dtm의 로우수가 줄어든다. - 왜?
-			}
-			for(int i=0;i<deptList.size();i++) {
-				DeptDTO rdept = deptList.get(i);
-				Vector<Object>  v = new Vector<>();//3번 생성됨
-				v.add(0,rdept.getDeptno());
-				v.add(1,rdept.getDname());
-				v.add(2,rdept.getLoc());
-				dtm_dept.addRow(v);
-			}
+		while(dtm_dept.getRowCount()>0)
+		{
+			dtm_dept.removeRow(0);
+		}
+		for(int i = 0; i<deptlist.size(); i++)
+		{
+			// 값을 테이블에 저장을 해야 된다.
+			/*---새로고침 시나리오1------
+			 * 전역변수로 선언 된 deptlist 를 끌어다가 DeptDTO 라는 변수를 하나 선언해서 값을 담은 다음
+			 * Vector 객체를 하나 만든다음 그 값들을 Vector에다 추가 -> dtm_dept.row에 추가
+			 */
+			DeptDTO redept = deptlist.get(i);
+			Vector<Object> v = new Vector(); // Object로 하는 이유가   dtm_dept로 받을 수 있는 파라미터가 addrow(object[], int)이기 떄문이다.
+			v.add(0,redept.getDeptno());
+			v.add(1,redept.getDname());
+			v.add(2,redept.getLoc());
+			dtm_dept.addRow(v);
+			
+		}
+		
+		
+
+			
+			
 		}////////////////// end of if ///////////////
+		
 		
 	}///////////////////// end of actionPerformed
 	
-	
-	
-	
-	
-	//새로고침(F5) 구현하기
-	public void refreshData() {
-		while(dtm_dept.getRowCount()>0) {//dtm은 데이터셋(자바측)받는 클래스이다.
-			dtm_dept.removeRow(0);//0번째 로우를 지우는 이유는 로우가 삭제 될때 마다 dtm의 로우수가 줄어든다. - 왜?
+	public void refresh() // 새로고침하는 메소드 
+	{
+		while(dtm_dept.getRowCount()>0)
+		{
+			dtm_dept.removeRow(0);
 		}
-		for(int i=0;i<deptList.size();i++) {
-			DeptDTO rdept = deptList.get(i);
-			Vector<Object>  v = new Vector<>();//3번 생성됨
-			v.add(0,rdept.getDeptno());
-			v.add(1,rdept.getDname());
-			v.add(2,rdept.getLoc());
+		for(int i = 0; i<deptlist.size(); i++)
+		{
+			// 값을 테이블에 저장을 해야 된다.
+			/*---새로고침 시나리오1------
+			 * 전역변수로 선언 된 deptlist 를 끌어다가 DeptDTO 라는 변수를 하나 선언해서 값을 담은 다음
+			 * Vector 객체를 하나 만든다음 그 값들을 Vector에다 추가 -> dtm_dept.row에 추가
+			 */
+			DeptDTO redept = deptlist.get(i);
+			Vector<Object> v = new Vector(); // Object로 하는 이유가   dtm_dept로 받을 수 있는 파라미터가 addrow(object[], int)이기 떄문이다.
+			v.add(0,redept.getDeptno());
+			v.add(1,redept.getDname());
+			v.add(2,redept.getLoc());
 			dtm_dept.addRow(v);
-		}		
-		
-	}//////////////////end of refreshData //////////////////
+			
+		}
+	}
+
+
 }

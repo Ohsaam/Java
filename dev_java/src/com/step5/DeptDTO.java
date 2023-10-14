@@ -16,17 +16,12 @@ public class DeptDTO {
 		
 	}
 	
-	
-	public  EmpDTO getEmpDTO()
+	public DeptDTO()
 	{
-		return empdto;
+		
+	}
 
-	}
-	
-	public void setEmpDTO()
-	{
-		this.empdto =empdto;
-	}
+
 	
 	public int getDeptno() {
 		return deptno;

@@ -12,16 +12,16 @@ public class DeptDTO {
 	/*
 	 * 부서를 먼저 작업을 해야 -> emp를 작업 가능 & 의존관계
 	 */
+	public DeptDTO()
+	{
+		
+	}
 	
 	public DeptDTO(int i, String string, String string2) {
 		// TODO Auto-generated constructor stub
 	}
 
-	public  EmpDTO getEmpDTO()
-	{
-		return empdto;
 
-	}
 	
 	public void setEmpDTO()
 	{
