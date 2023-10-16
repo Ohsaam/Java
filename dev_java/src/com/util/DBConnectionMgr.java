@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public class DBConnectionMgr {
-	DBConnectionMgr dbMgr = null;
+	static DBConnectionMgr  dbMgr = null;
 	/*
 	 * null로 초기화 하는 이유는 nullcheck를 해서 null일 때만 새로 인스턴스화 하고 null이 아닐 떄는 계속 사용한다.
 	 * 
@@ -19,8 +19,9 @@ public class DBConnectionMgr {
 	public static final String url = "jdbc:oracle:thin:@127.0.0.1:1521:orcl11";
 	public static final String user = "scott";
 	public static final String pw = "tiger";
-	public DBConnectionMgr getInstance()
+	public static DBConnectionMgr getInstance()
 	{
+		
 		if(dbMgr == null)
 		{
 			return new DBConnectionMgr();
@@ -40,7 +41,6 @@ public class DBConnectionMgr {
 		 * 중복으로 예외처리를 하면 되는데 범위를 따져야한다. -> 적은 범위를 처음으로 했으면 다음엔 더 넓은 범위 
 		 * 그 다음은 더 넓은 범위로 해야한다.
 		 */
-	
 	
 		try {
 			// 각 제조사의 드라이버 클래스를 로딩하기
