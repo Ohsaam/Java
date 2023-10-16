@@ -43,7 +43,15 @@ public class DBConnectionMgr {
 		 */
 	
 		try {
+			
 			// 각 제조사의 드라이버 클래스를 로딩하기
+			/*
+			 * 물리적으로 떨어져있는 오라클 서버와 연결통로 확보 // ClassNotFoundException
+			 * getConnection 메소드의 원형도 Static 붙어 있다. + 하나다 복제 허용 안함 - 하나로 사용하고 반납하고 사용한다.
+			 * getConnection 메소드 호출 때문에 예외처리를 하였다. 
+			 * 이유는 URL이 존재하지 않을 경우 - 런타임오류(실행에러) + 논리의 오류 + 사이드 이팩트
+			 * 신뢰도가 높은 코드는 + 지역변수를 이용해야한다.
+			 */
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			// 물리적으로 떨어져 있는 오라클 서버와 연결통로 확보 
 			con = DriverManager.getConnection(url,user,pw);
