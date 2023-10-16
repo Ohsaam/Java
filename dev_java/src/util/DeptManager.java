@@ -168,21 +168,19 @@ public class DeptManager extends JFrame implements ActionListener{
 		//너 조회버튼 누른거야?
 		else if(obj == jbtnSelect) {
 			System.out.println("조회버튼 클릭");//log
-			//웹 개발이더라도 html이 데이터를 쥘수는 없다
-			//html과 자바코드를 섞어쓰기가 가능한가? - 불가 - jsp공부함  - 자바자료구조를 JSON형식으로 넘기기
-			//dtm_dept는 실제 데이터를 포용함
-			//JTable은 클릭이벤트 같은 것은 가능함 - 실제 데이터를 쥐고 있지 못함
-			//getRowCount는 데이터의 로우 수 반환 - 3건
+			List<DeptDTO> list = getDTOList();//오라클 서버에서 조회한 결과를 쥐고 있다. - 리턴타입이 쥐고 있다.
 			while(dtm_dept.getRowCount()>0) {//dtm은 데이터셋(자바측)받는 클래스이다.
 				dtm_dept.removeRow(0);//0번째 로우를 지우는 이유는 로우가 삭제 될때 마다 dtm의 로우수가 줄어든다. - 왜?
 			}
-			for(int i=0;i<deptList.size();i++) {
-				Map<String,Object> map = deptList.get(i);
+			
+			for(int i=0;i<list.size();i++) {//list.size()=4이다. 10,20,30,40
+				DeptDTO dept = list.get(i);
 				Vector<Object>  v = new Vector<>();//3번 생성됨
-				v.add(0,map.get("DEPTNO"));
-				v.add(1,map.get("DNAME"));
-				v.add(2,map.get("LOC"));
-				dtm_dept.addRow(v);
+				v.add(0, dept.getDeptno());
+				v.add(1,dept.getDname());
+				v.add(2,dept.getLoc());
+				//addRow메소드의 오버로딩은 2가지 임 - 1)Vector, 2)Object[]
+				dtm_dept.addRow(v);//4번 반복 되니까 - 로우에 추가하는 코드를 4번 실행함 - list.size()=4
 			}
 		}////////////////// end of if ///////////////
 		
@@ -199,6 +197,5 @@ public class DeptManager extends JFrame implements ActionListener{
 			v.add(1,map.get("DNAME"));
 			v.add(2,map.get("LOC"));
 			dtm_dept.addRow(v);
-		}	
-	}//////////////////end of refreshData //////////////////
-}
+		}}}	
+	

@@ -24,7 +24,7 @@ public class DBConnectionMgr {
 		
 		if(dbMgr == null)
 		{
-			return new DBConnectionMgr();
+			dbMgr =  new DBConnectionMgr();
 		}
 		return dbMgr;
 		
