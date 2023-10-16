@@ -1,28 +1,34 @@
 package com.CollectionFrameWork;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+
 public class TestMap1 {
 	public static void main(String[] args) {
-		Map<String, String> map = new HashMap<>();
-		map.put("오지환", "낙엽");
-		map.put("김철수", "콩나물");
-		map.put("홍준표", "대구");
+		Map<String, Object> map = new HashMap<>();
+		map.put("김철수", 20);
+		map.put("안김수",30);
 		
-		Set<String> keySet = map.keySet(); // 키 값이 들어간거임  
-		Object[] keys = keySet.toArray();
+		Set<Map.Entry<String, Object>> setentry = map.entrySet();
+		Iterator<Map.Entry<String, Object>>iter =setentry.iterator();
 		
-	
-		/*
-		 * 키 값 말고 내용 값을 출력하고 싶어
-		 */
-		// 우선 키값 먼저 출력
-		for(int i = 0; i < keys.length; i++)
+		while(iter.hasNext())
 		{
-			System.out.println(keys[i] +"," + map.get(keys[i]));
+			Map.Entry<String, Object> setiterator = iter.next();
+			String str1 = setiterator.getKey();
+			Object obj = setiterator.getValue();
+			
+			
+			System.out.println(str1+"=====>" + obj);
+			
+			
 		}
+		
+		
+		
 	}
 
 }
