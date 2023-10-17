@@ -1,16 +1,9 @@
 package com.step6;
 
 public class Super1 {
-	int a;
-	void methodA()
-	{
-		System.out.println("MethodA : 호출");
-	}
-	Super1()
-	{
-		methodA();
-	}
-	
-
-
+ int a=1;
+ void methodA() {
+	 System.out.println("methodA 호출");
+ }
 }
+

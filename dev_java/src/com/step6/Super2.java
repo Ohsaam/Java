@@ -1,23 +1,14 @@
 package com.step6;
 
 public class Super2 extends Super1 {
-
-	/*
-	 * 다형성 :  같은 메소드를 호출 했는데 그 결과가 달라진다.
-	 */
-	int b =2;
-	
-	@Override
-	void methodA()
-	{
-		super.methodA();
-		System.out.println("Super2에서 실행됐음");
+	int b = 2;
+	void methodB() {
+		//내안에 선언된 변수가 아니어도 부모가 가진 변수는 호출할 수 있다.
+		System.out.println(a);
+		System.out.println("methodB()  호출");
 	}
-	
-
-	
-	public static void main(String[] args) {
-		Super1 su1 = new Super2(); // 업케스팅 
-		Super2 su2 = (Super2)su1; // 다운캐스팅
+	//Super2클래스를 상속받는 클래스에서는 methodB와 methodC를 오버라이딩 할 수 있다.
+	public void methodC() {
+		System.out.println("Super2 : methodC() 호출");
 	}
 }
