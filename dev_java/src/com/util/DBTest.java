@@ -1,4 +1,4 @@
-package util;
+package com.util;
 
 public class DBTest {
 	public static void main(String[] args) {

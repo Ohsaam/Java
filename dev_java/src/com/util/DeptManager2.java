@@ -1,4 +1,4 @@
-package util;
+package com.util;
 
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -24,11 +24,10 @@ import javax.swing.table.DefaultTableModel;
 
 import com.CollectionFrameWork.DeptDTO;
 import com.google.gson.Gson;
-import com.util.DBConnectionMgr;
 // ActionListener al = new DeptManager();
 //자바는 단일 상속만 가능하다.- 다중상속은 불가함 - 다중상속의 단점을 보완하기 위해 인터페이스가 제공됨
 //단 인터페이스는 여러개를 implements할 수 있다.(추상클래스, 인터페이스는 설계관점에서 중요함 - 특징, 컨벤션)
-public class DeptManager extends JFrame implements ActionListener{
+public class DeptManager2 extends JFrame implements ActionListener{
 	//선언부
 	//JDBC API 를 활용하여 오라클 서버에서 부서목록 조회하기
 	Connection 					con  	= null;//연결통로확보
@@ -55,7 +54,7 @@ public class DeptManager extends JFrame implements ActionListener{
 	//A a = A.getInstance();//복제본을 허락하지 않고 원본 하나만 관리한다. - 싱글톤 패턴
 	//B  b = new A();//추상클래스 상속관계
 	//C c = new A();//인터페이스 구현체 클래스
-	DeptManager(){
+	DeptManager2(){
 		dbMgr  = DBConnectionMgr.getInstance();
 		//Calendar cal = Calendar.getInstance();
 		initDisplay();
@@ -81,32 +80,25 @@ public class DeptManager extends JFrame implements ActionListener{
 	//select가 모든 업무 페이지의 시작 페이지이므로  맡은 업무의 첫 시작임 - 
 	public List<DeptDTO> getDTOList(){//먼저 연습하고 Map을 연습 할것
 		System.out.println("제네릭 타입을 getter/setter로 처리할때");
-		List<DeptDTO> list = new ArrayList<>();
+
+		List<Map>
 		StringBuilder sql = new StringBuilder();
 		//sql.append("SELECT deptno, dname, loc FROM dept");//4건 모두 조회함 10,20,30,40
 		sql.append("SELECT empno, ename, dname");
 		sql.append("FROM emp,dept");
 		sql.append("WHERE emp.deptno = dept.deptno");
 		try {
-			//아래 코드에서 NullPointerException이 발생 했다면 생성자에서 객체 주입이 안됨
-			//dbMgr.코드에서 직접적인 원인이 있음
-			//DBConnectionMgr이 생성되어야 getConnection메소드를 호출할 수 있을 것이고
-			//호출이 되어야 리턴값으로 Connection 객체를 주입 받음
+
 			con = dbMgr.getConnection();
 			pstmt = con.prepareStatement(sql.toString());
 			rs = pstmt.executeQuery();
 			DeptDTO dto = null;
 			while(rs.next()) {
-				//아래 코드에서 반복문이 실행될 때마다 서로 다른 주소번지가 4개 만들어지니까
-				// 문제점 - deptDTO는 테이블 dept테이블을 클래스로 설계한 것.
 				dto = new DeptDTO(rs.getInt("deptno"), rs.getString("dname"),rs.getString("loc"));
-				//아래 코드를 작성하지 않으면 4개의 정보가 모두 유지되지 않음
 				list.add(dto);//0, null, null, 0 ,null, null, 0,null, null, 0 , null,null
 			}
 			System.out.println(list);
-			//자바를 통해서 DB연동한 후에 후처리하기(자바컬렉션 프레임워크를 JSON포맷으로 변경함)
-			//Gson g = new Gson();브라우저를 통해서 출력할 때만 사용하면 된다. - JSON포맷이어야 javascript에서 꺼내기가 가능함
-			//String temp = g.toJson(list);
+
 		} catch (SQLException se) {
 			System.out.println(se.toString());//부적합한 식별자  - 컬럼명이 존재하지 않을 때 - SQLException해당됨
 		} catch (Exception e) {
