@@ -83,7 +83,10 @@ public class DeptManager extends JFrame implements ActionListener{
 		System.out.println("제네릭 타입을 getter/setter로 처리할때");
 		List<DeptDTO> list = new ArrayList<>();
 		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT deptno, dname, loc FROM dept");//4건 모두 조회함 10,20,30,40
+		//sql.append("SELECT deptno, dname, loc FROM dept");//4건 모두 조회함 10,20,30,40
+		sql.append("SELECT empno, ename, dname");
+		sql.append("FROM emp,dept");
+		sql.append("WHERE emp.deptno = dept.deptno");
 		try {
 			//아래 코드에서 NullPointerException이 발생 했다면 생성자에서 객체 주입이 안됨
 			//dbMgr.코드에서 직접적인 원인이 있음
@@ -95,6 +98,7 @@ public class DeptManager extends JFrame implements ActionListener{
 			DeptDTO dto = null;
 			while(rs.next()) {
 				//아래 코드에서 반복문이 실행될 때마다 서로 다른 주소번지가 4개 만들어지니까
+				// 문제점 - deptDTO는 테이블 dept테이블을 클래스로 설계한 것.
 				dto = new DeptDTO(rs.getInt("deptno"), rs.getString("dname"),rs.getString("loc"));
 				//아래 코드를 작성하지 않으면 4개의 정보가 모두 유지되지 않음
 				list.add(dto);//0, null, null, 0 ,null, null, 0,null, null, 0 , null,null
