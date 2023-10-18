@@ -1,4 +1,5 @@
-package com.soket;
+package Project;
+
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
@@ -14,15 +15,14 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import com.chat.MemberShipView;
-import com.chat.ZipCodeView;
 
 public class LoginForm extends JFrame implements ActionListener {
 	/////////////////////////////////////////////////////
 	/* 선언부 */
 	/////////////////////////////////////////////////////
 	String nickName="";
-	String imgPath="D:\\WorkSpace_Java\\Java\\dev_java\\src\\image\\";
+	String imgPath="C:\\Users\\ohjih\\OneDrive\\바탕 화면\\WokrSpace_java\\Java\\dev_java\\src\\image\\";
+	// 
 	//D:\WorkSpace_Java\Java\dev_java\\src\image\\;
 	JLabel jlb_id = new JLabel("아이디");
 	JLabel jlb_pw = new JLabel("패스워드");
