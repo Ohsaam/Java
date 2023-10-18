@@ -1,4 +1,4 @@
-package com.baseballgame;
+package com.Interface;
 
 /*
  * 학습 목표 : 다트 연산자 2개 입력 

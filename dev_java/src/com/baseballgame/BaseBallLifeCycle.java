@@ -1,7 +1,7 @@
 package com.baseballgame;
 
 public class BaseBallLifeCycle {
-    private static BaseBallLifeCycle instance = new BaseBallLifeCycle();
+    private static BaseBallLifeCycle instance = null;
     private BaseBallGameUI baseBallGameUI;
     private BaseBallLogic baseBallLogic;
     private BaseBallGameEvent baseBallGameEvent;
@@ -11,6 +11,11 @@ public class BaseBallLifeCycle {
     }
 
     public static BaseBallLifeCycle getInstance() {
+    	if(instance == null)
+    	{
+    		instance = new BaseBallLifeCycle();
+    		
+    	}
         return instance;
     }
 

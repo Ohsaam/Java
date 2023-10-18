@@ -7,7 +7,6 @@ public class BaseBallGameEvent implements ActionListener {
 	int cnt = 0;
     BaseBallGameUI gameUI = null;
     BaseBallLogic gameLogic = null;
-	
 	public BaseBallGameEvent()
 	{
 		
@@ -39,6 +38,12 @@ public class BaseBallGameEvent implements ActionListener {
 		//||가 있을 땐 앞에 조건이 true이면 뒤에 조건이 false이어도 어차피 실행됨 - 뒤에 조건을 안따짐- 일량이 줄어듦
 		else if("나가기".equals(label) || obj == gameUI.jmi_exit) {//or이니까 둘중 하나만 true이어도 호출된다.
 			exit();//사용자 정의 메소드 호출이다.
+		}
+		else if(obj == gameUI.jmi_new)
+		{
+			/**
+			 * 여기서 창을 띄워주면 된다. db 
+			 */
 		}
 		//새게임을 누른거야?
 		else if(obj == gameUI.jbtn_new || obj == gameUI.jmi_new) {

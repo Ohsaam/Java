@@ -1,4 +1,4 @@
-package com.baseballgame;
+package com.JFrame;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

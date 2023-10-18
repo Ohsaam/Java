@@ -29,23 +29,17 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+
+import com.chat.ZipCodeView;
 import com.util.DBConnectionMgr;
 
-public class ZipCodeView extends JFrame implements ActionListener, FocusListener {
+public class ZipCodeView2 extends JFrame implements ActionListener, FocusListener {
 	//선언부
 	String zdo = null;
-	//물리적으로 떨어져 있는 db서버와 연결통로 만들기
 	Connection 			con 	= null;
-	//위에서 연결되면 쿼리문을 전달할 전령의 역할을 하는 인터페이스 객체 생성하기
 	PreparedStatement 	pstmt 	= null;
-	//조회된 결과를 화면에 처리해야 하므로 오라클에 커서를 조작하기 위해 ResultSet추가
 	ResultSet 			rs 		= null;
-	//JFrame 은 기본적으로 BorderLayout이다(동,서,남,북,중앙 배치)
-	//디폴트는 FlowLayout, ->  BorderLayout -> setLayout
-	//jp_north.add("Center", jtf_dong)
-	//jp_north.add("West",jbtn_search)
 	JPanel jp_north = new JPanel();//Div태그 span생각
-	//insert here
 	String zdos[] = {"전체","서울","경기","강원"};
 	String zdos2[] = {"전체","부산","전남","대구"};
 	Vector<String> vzdos = new Vector<>();//vzdos.size()==>0
@@ -63,9 +57,7 @@ public class ZipCodeView extends JFrame implements ActionListener, FocusListener
 			,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 	String zdos3[] = null;
 	 DBConnectionMgr dbMgr = null;//싱글톤 패턴으로 관리한다. 복제본을 만들지 않는다. 절대로....
-	//MemberShip memberShip = null;
-	//생성자
-	public ZipCodeView() {
+	public ZipCodeView2() {
 	}
 
 	//화면처리부
@@ -74,10 +66,7 @@ public class ZipCodeView extends JFrame implements ActionListener, FocusListener
 		jtf_search.addFocusListener(this);
 		jbtn_search.addActionListener(this);
 		jtf_search.addActionListener(this);
-		//북쪽 배치하는 속지를 FlowLayout-> 동서남북중앙 - UI솔루션
 		jp_north.setLayout(new BorderLayout());
-		/*	*/
-		//vzdos.copyInto(zdos2);
 		for(int x=0;x<zdos2.length;x++) {
 			vzdos.add(zdos2[x]);
 		}
@@ -97,59 +86,30 @@ public class ZipCodeView extends JFrame implements ActionListener, FocusListener
 	//메인메소드
 	public static void main(String[] args) {
 		ZipCodeView zcs = new ZipCodeView();
-		zcs.initDisplay();//화면이 먼저 열리도록 하고 오라클서버를 나중에 연결하자
-		//zcs.refreshData("가산");
+		zcs.initDisplay();
 	}
-	/******************************************************
-	 * 사용자로부터 동이름을 입력 받아서 조건 검색을 구현하기
-	 * @param dong - 동이름
-	 * sql문
-		SELECT zipcode, address - 두 개의 컬럼이 DTO or Map - > List담아라 - > row레벨을 담는다
-		  FROM zipcode_t
-		 WHERE dong LIKE ?||'%';	  
-	 * 화면이 존재하는 경우 DB서버에서 가져온 정보를 가지고 후처리를 해야 함
-	 * return타입을 void로 했으니까 이 메소드에서 화면처리까지 진행함
-	 * UI - react - 화면과 로직(Model계층-UI+데이터셋만난다) 분리  - 
-	 * 데이터셋에 데이터를 추가하는 것은 row단위(1차배열,  Vector)로 처리된다
-	 * DefaultTableModel -> addRow(Objectr[]), addRow(Vector)
-	 * ClassNotFoundException - > ojdbc6.jar ->  build path
-	 * NullPointerException발동 -> con.prepareStatement("SELECT문"); - con이 널이다. ip주소, port:1521, 1522, `1523
-	 * scott/tiger - 인증실패관련메시지
-	 * sid가 이미 설치된 컴터 orcl
-	 * SQLException은 sql문의 오류이다. 자바의 문제가 아님 - 토드에서 단위테스트 해볼것.
-	 ******************************************************/
+
 	public void refreshData(String dong) {
-		List<Map<String,Object>> list = new ArrayList<>();
+		List<Map<String, Object>> map = new ArrayList<>();
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT zipcode, address    ");
 		sql.append("  FROM zipcode_t           ");
 		sql.append(" WHERE dong LIKE ?||'%'");
 		dbMgr = DBConnectionMgr.getInstance();
-		try {
+		try
+		{
 			con = dbMgr.getConnection();//물리적으로 떨어져 있는 서버와 연결통로 확보
-			pstmt = con.prepareStatement(sql.toString());//쿼리문을 먼저 스캔하여 있을 지 모르는 변수의 자리를 치환할것.
-			pstmt.setString(1, dong);//dong, 당산, 가산, 공덕
+			pstmt = con.prepareStatement(sql.toString());//쿼리문
+			pstmt.setString(1, dong);
 			rs = pstmt.executeQuery();
-			Map<String,Object> rmap = null;
-			while(rs.next()) {
+			Map<String, Object> rmap = null;
+			while(rs.next())
+			{
 				rmap = new HashMap<>();
 				rmap.put("zipcode", rs.getInt("zipcode"));
 				rmap.put("address", rs.getString("address"));
-				list.add(rmap);
+				
 			}
-			System.out.println(list);//주소번지가 33번 출력될것이다. - 단위테스트 하자
-			//메소드 설계가 리턴타입이 빠져 있으므로 화면 처리까지 여기서 해야 함.
-			for(int i=0;i<list.size();i++) {//33번 반복됨 - row수
-				Map<String, Object> map = list.get(i);
-				Vector<Object> v = new Vector<>();
-				v.add(0,map.get("zipcode"));
-				v.add(1,map.get("address"));
-				dtm_zipcode.addRow(v);
-			}
-		} catch (SQLException se) {
-			System.out.println(sql.toString());//출력된 쿼리문을 갈무리해서 토드에서 확인해 볼것.
-		} catch (Exception e) {
-			// TODO: handle exception
 		}
 	}
 	@Override

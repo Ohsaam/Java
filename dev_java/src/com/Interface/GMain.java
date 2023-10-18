@@ -1,4 +1,4 @@
-package com.baseballgame;
+package com.Interface;
 
 public class GMain {
 
