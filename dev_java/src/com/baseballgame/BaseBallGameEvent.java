@@ -7,6 +7,8 @@ public class BaseBallGameEvent implements ActionListener {
 	int cnt = 0;
     BaseBallGameUI gameUI = null;
     BaseBallLogic gameLogic = null;
+    MemberShipView msv = new MemberShipView(this);
+    
 	public BaseBallGameEvent()
 	{
 		
@@ -31,19 +33,18 @@ public class BaseBallGameEvent implements ActionListener {
 		Object obj = e.getSource();//이벤트소스의 주소번지를담아줌.
 		System.out.println(obj);
 		if("지우기".equals(label)) {
-			gameUI.jta_display.setText("");//화면측 - BaseBallGameUI
+			gameUI.jta_display.setText("");
 		}
-		//너 나가기 버튼이니?
-		//|만 있을 땐 앞에 조건이 true이면 실행문이 결정되었지만 뒤에 조건을 따짐
-		//||가 있을 땐 앞에 조건이 true이면 뒤에 조건이 false이어도 어차피 실행됨 - 뒤에 조건을 안따짐- 일량이 줄어듦
 		else if("나가기".equals(label) || obj == gameUI.jmi_exit) {//or이니까 둘중 하나만 true이어도 호출된다.
 			exit();//사용자 정의 메소드 호출이다.
 		}
-		else if(obj == gameUI.jmi_new)
+		else if("회원가입".equals(label) || obj == gameUI.jmi_user)
 		{
 			/**
 			 * 여기서 창을 띄워주면 된다. db 
 			 */
+			msv.initDisplay();
+			
 		}
 		//새게임을 누른거야?
 		else if(obj == gameUI.jbtn_new || obj == gameUI.jmi_new) {

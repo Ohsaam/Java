@@ -1,4 +1,5 @@
-package com.soket;
+package chat.step2;
+
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -11,6 +12,7 @@ public class TalkServerThread extends Thread {
 	ObjectOutputStream oos = null;
 	ObjectInputStream ois = null;
 	String chatName = null;//현재 서버에 입장한 클라이언트 스레드 닉네임 저장
+	
 	public TalkServerThread(TalkServer ts) {
 		this.ts = ts;
 		this.client = ts.socket;

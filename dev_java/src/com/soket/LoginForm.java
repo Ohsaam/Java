@@ -15,6 +15,9 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import com.chat.MemberShipView;
+import com.chat.ZipCodeView;
+
 public class LoginForm extends JFrame implements ActionListener {
 	/////////////////////////////////////////////////////
 	/* 선언부 */
@@ -35,7 +38,8 @@ public class LoginForm extends JFrame implements ActionListener {
 			new ImageIcon(imgPath+"confirm.png"));
 
 	// JPanel에 쓰일 이미지아이콘
-	ImageIcon ig = new ImageIcon(imgPath+"main.PNG");
+	ImageIcon ig = new ImageIcon(imgPath+"main.png");
+	MemberShipView mbv = new MemberShipView(this);
 
 	/////////////////////////////////////////////////////
 	/* 생성자 */
@@ -107,7 +111,21 @@ public class LoginForm extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
 		if (obj == jbtn_join) {
-			//new memberJoin();
+			/*
+			 * 회원가입 창을 구현 예정.
+			 * 1. 우선 기존에 회원가입 창을 가지고 있던 MemberShipView을 이용하여 값을 받아옴 -> 해결
+			 * -  이슈 발생 : 디비쪽 우편번호가 입력이 안된다. -> java.sql.SQLException:  --> service들어가서 해결하면 된다.
+			 * 
+			 * 2. 아이디
+			 * -
+			 * 
+			 * 3. 패스워드 
+			 * 
+			 * 
+			 * 4. 
+			 */
+			mbv.initDisplay();
+
 		} 
 		else if (obj == jbtn_login) {
 			if ( "".equals(jtf_id.getText()) || "".equals(jpf_pw.getText()) ){

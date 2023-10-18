@@ -1,6 +1,5 @@
 package com.chat;
 
-
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -106,24 +105,7 @@ public class ZipCodeView extends JFrame implements ActionListener, FocusListener
 		zcs.initDisplay();//화면이 먼저 열리도록 하고 오라클서버를 나중에 연결하자
 		//zcs.refreshData("가산");
 	}
-	/******************************************************
-	 * 사용자로부터 동이름을 입력 받아서 조건 검색을 구현하기
-	 * @param dong - 동이름
-	 * sql문
-		SELECT zipcode, address - 두 개의 컬럼이 DTO or Map - > List담아라 - > row레벨을 담는다
-		  FROM zipcode_t
-		 WHERE dong LIKE ?||'%';	  
-	 * 화면이 존재하는 경우 DB서버에서 가져온 정보를 가지고 후처리를 해야 함
-	 * return타입을 void로 했으니까 이 메소드에서 화면처리까지 진행함
-	 * UI - react - 화면과 로직(Model계층-UI+데이터셋만난다) 분리  - 
-	 * 데이터셋에 데이터를 추가하는 것은 row단위(1차배열,  Vector)로 처리된다
-	 * DefaultTableModel -> addRow(Objectr[]), addRow(Vector)
-	 * ClassNotFoundException - > ojdbc6.jar ->  build path
-	 * NullPointerException발동 -> con.prepareStatement("SELECT문"); - con이 널이다. ip주소, port:1521, 1522, `1523
-	 * scott/tiger - 인증실패관련메시지
-	 * sid가 이미 설치된 컴터 orcl
-	 * SQLException은 sql문의 오류이다. 자바의 문제가 아님 - 토드에서 단위테스트 해볼것.
-	 ******************************************************/
+
 	public void refreshData(String dong) {
 		List<Map<String,Object>> list = new ArrayList<>();
 		StringBuilder sql = new StringBuilder();
@@ -167,6 +149,8 @@ public class ZipCodeView extends JFrame implements ActionListener, FocusListener
 			refreshData(dong);
 		}
 		
+		
+		
 	}
 
 	@Override
@@ -189,18 +173,18 @@ public class ZipCodeView extends JFrame implements ActionListener, FocusListener
 		// TODO Auto-generated method stub
 		
 	}
+
 	@Override
 	public void mousePressed(MouseEvent e) {
-		if(e.getClickCount() == 2)
-		{
-			int index = jtb_zipcode.getSelectedRow();
-			
-			int zipcode = (int)dtm_zipcode.getValueAt(index, 0);
-			String adress = (String)dtm_zipcode.getValueAt(index, 1);
+		if(e.getClickCount()==2) {//더블클릭한거야?
+			int index = jtb_zipcode.getSelectedRow();//1.8부터 오토박싱을 통해서 int와 Wrapper클래스는 자동으로 형전환
+			int zipcode = (int)dtm_zipcode.getValueAt(index, 0);//선택된 로우의 우편번호가 담김
+			String address = (String)dtm_zipcode.getValueAt(index, 1);
+			System.out.println(zipcode +",  "+ address);//
+
 			memberShipView.jtf_zipcode.setText(String.valueOf(zipcode));
 			memberShipView.jtf_address.setText(String.valueOf(address));
-			
-		}
+			dispose();
 		}
 	}
 

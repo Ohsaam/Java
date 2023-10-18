@@ -39,9 +39,12 @@ public class MemberShipView extends JDialog implements ActionListener{
     //생성자
     
     BaseBallGameUI baseBallGameUI = null;
-    
+    BaseBallGameEvent bbg = null;
 
-    //화면처리부
+    public MemberShipView(BaseBallGameEvent baseBallGameEvent) {
+    	 bbg = baseBallGameEvent;
+    }
+	//화면처리부
     public void initDisplay() {
     	
         jbtn_zipcode.addActionListener(this);
@@ -87,10 +90,7 @@ public class MemberShipView extends JDialog implements ActionListener{
         this.setSize(400, 500);
         this.setVisible(true);
     }
-//    public static void main(String[] args) {
-//    	MemberShipView ms = new MemberShipView();
-//        ms.initDisplay();
-//    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
     	System.out.println("action");

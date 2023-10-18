@@ -1,6 +1,7 @@
 package com.chat;
 
 import java.awt.FlowLayout;
+import javax.swing.JPasswordField;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,9 +9,13 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+
+
+import com.soket.LoginForm;
 
 
 public class MemberShipView extends JDialog implements ActionListener{
@@ -18,8 +23,10 @@ public class MemberShipView extends JDialog implements ActionListener{
     JPanel jp_center = new JPanel();
     JLabel jlb_id = new JLabel("아이디");
     JTextField jtf_id = new JTextField(10);
+    
     JLabel jlb_pw = new JLabel("패스워드");
     JTextField jtf_pw = new JTextField(10);
+    
     JLabel jlb_nickName = new JLabel("대화명");
     JTextField jtf_nickName = new JTextField(20);
     JLabel jlb_name = new JLabel("성명");
@@ -37,22 +44,27 @@ public class MemberShipView extends JDialog implements ActionListener{
     JButton jbtn_ins = new JButton("등록");
     JButton jbtn_close = new JButton("닫기");
     ZipCodeView zv = new ZipCodeView(this);
-    /**
-     * 1. 나에 대한 객체의 정보를 생성자에 주입하여 넘겼지만 
-     * 2. 여기서 zv에 대해서 사용 할 수 있다.
-     */
+    JPasswordField jpf_pw = new JPasswordField(10);
+
+    LoginForm lf = null;
     //생성자
-    public MemberShipView(){
-        //initDisplay();
+    public MemberShipView()
+    {
+    	
+    }
+    public MemberShipView(LoginForm loginForm){
+    	LoginForm lf = loginForm;
     }
     //화면처리부
     public void initDisplay() {
+    	jbtn_close.addActionListener(this);
+    	jbtn_ins.addActionListener(this);
         jbtn_zipcode.addActionListener(this);
         jp_center.setLayout(null);
         jlb_id.setBounds(20, 20, 100, 20);
         jtf_id.setBounds(120, 20, 120, 20);
-        jlb_pw.setBounds(20, 45, 100, 20);
         jtf_pw.setBounds(120, 45, 120, 20);
+        jpf_pw.setBounds(120, 45, 120, 20);
         jlb_nickName.setBounds(20, 70, 100, 20);
         jtf_nickName.setBounds(120, 70, 150, 20);
         jlb_name.setBounds(20, 95, 100, 20);
@@ -102,5 +114,25 @@ public class MemberShipView extends JDialog implements ActionListener{
         	zv.initDisplay();
 
         }
+        else if (obj == jbtn_ins )
+        {
+        	JOptionPane.showMessageDialog(this,"등록이 완료되었습니다.","INFO", JOptionPane.INFORMATION_MESSAGE);
+        	dispose();
+        	/*
+        	 * 여기는 추후에 디비연동하여 값을 받아와야함
+        	 */
+
+        }
+        else if (obj == jlb_pw)
+        {
+        	char[] password = jpf_pw.getPassword();
+        	String passwordString = new String(password);
+        }
+        else if(obj == jbtn_close)
+        {
+        	JOptionPane.showMessageDialog(this,"등록이 취소했습니다.","INFO", JOptionPane.INFORMATION_MESSAGE);
+        	dispose();
+        }
     }
+    
 }
