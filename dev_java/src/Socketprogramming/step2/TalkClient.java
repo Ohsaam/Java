@@ -47,6 +47,7 @@ public class TalkClient extends JFrame implements ActionListener {
 	JButton jbtn_send  = new JButton("전송");//south속지 east
 	JTextArea jta_display = null;
 	JScrollPane jsp_display = null;
+	
 	public TalkClient() {
 		jtf_msg.addActionListener(this);
 		jbtn_exit.addActionListener(this);

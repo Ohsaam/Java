@@ -1,4 +1,4 @@
-package Project;
+package Login;
 
 import java.awt.FlowLayout;
 import javax.swing.JPasswordField;
@@ -144,61 +144,76 @@ public class MemberShipView extends JDialog implements ActionListener{
 //
 //	}
     
-    @Override
-	public void actionPerformed(ActionEvent e) {
-    	
-		Object obj = e.getSource();
-		MemberDTO member = new MemberDTO();
-		member.setId(jtf_id.getText());
-		member.setPw(jtf_pw.getText());
-		member.setNickName(jtf_nickName.getText());
-		member.setGender(jlb_gender.getText());
-		member.setZipcode(jtf_zipcode.getText());
-		member.setAddress(jtf_address.getText());
-		
-		MemberDao dao = MemberDao.getInstance();
-		int result = dao.save(member);
-		
-    	if(obj == jbtn_zipcode) 
-    	{
-    		zv.initDisplay();
-    	}
-    	else if(result == 1) {
-			JOptionPane.showMessageDialog(null, "회원가입이 완료되었습니다.");
-			dispose();
-		}else {
-			JOptionPane.showMessageDialog(null, "회원가입이 실패하였습니다.");
-			dispose();
-	}
-}}
+//    @Override
+//	public void actionPerformed(ActionEvent e) {
+//    	
+//		Object obj = e.getSource();
+//		MemberDTO member = new MemberDTO();
+//		member.setId(jtf_id.getText());
+//		member.setPw(jtf_pw.getText());
+//		member.setNickName(jtf_nickName.getText());
+//		String selectedGender = (String) jcb_gender.getSelectedItem();
+//		member.setGender(selectedGender);
+//		member.setZipcode(jtf_zipcode.getText());
+//		member.setAddress(jtf_address.getText());
+//		
+//		
+//    	if(obj == jbtn_zipcode) 
+//    	{
+//    		zv.initDisplay();
+//    	}
+////    	else if(result == 1) {
+////			JOptionPane.showMessageDialog(null, "회원가입이 완료되었습니다.");
+////			dispose();
+////		}else if(result == -1) {
+////			JOptionPane.showMessageDialog(null, "회원가입이 실패하였습니다.");
+////			dispose();
+////
+////			
+////	}
+////		else
+////		{
+////			
+////		}
+////    
+////	
+////}}
 
 
     
    
     	
-//    @Override
-//    public void actionPerformed(ActionEvent e) {
-//    	System.out.println("action");
-//        Object obj = e.getSource();
-//        if(obj == jbtn_zipcode) {
-//        	zv.initDisplay();
-//
-//        }
-//        else if (obj == jbtn_ins )
-//        {
-//        	JOptionPane.showMessageDialog(this,"회원가입이 완료되었습니다.","INFO", JOptionPane.INFORMATION_MESSAGE);
-//        	dispose();
-//        	/*
-//        	 * 여기는 추후에 디비연동하여 값을 받아와야함
-//        	 */
-//
-//        }
-//
-//        else if(obj == jbtn_close)
-//        {
-//        	JOptionPane.showMessageDialog(this,"회원가입이 실패하였습니다.","INFO", JOptionPane.INFORMATION_MESSAGE);
-//        	dispose();
-//        }
-//    }
+    @Override
+    public void actionPerformed(ActionEvent e) {
+    	System.out.println("action");
+        Object obj = e.getSource();
+        MemberDTO member = new MemberDTO();
+        member.setUsername(jtf_id.getText());
+        member.setPassword(jpf_pw.getText());
+        MemberDao dao = MemberDao.getInstance();
+        int rs = dao.save(member);
+        
+        if(obj == jbtn_zipcode) {
+        	zv.initDisplay();
+
+        }
+        else if (obj == jbtn_ins || rs ==1)
+        {
+        	JOptionPane.showMessageDialog(this,"회원가입이 완료되었습니다.","INFO", JOptionPane.INFORMATION_MESSAGE);
+        	//이 지점이다. 디비에 넘겨줘야 되는 부분이
+        	
+        	dispose();
+        	/*
+        	 * 여기는 추후에 디비연동하여 값을 받아와야함
+        	 */
+
+        }
+
+        else if(obj == jbtn_close)
+        {
+        	JOptionPane.showMessageDialog(this,"회원가입이 실패하였습니다.","INFO", JOptionPane.INFORMATION_MESSAGE);
+        	dispose();
+        }
+    }}
     
 

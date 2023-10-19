@@ -12,6 +12,13 @@ public class DBConnection {
 		String id="scott";
 		String pw="tiger";
 		String driver="oracle.jdbc.driver.OracleDriver";
+		
+		//"jdbc:oracle:thin:@127.0.0.1:1521:orcl11";
+		//"scott";
+		//"tiger";
+		//"oracle.jdbc.driver.OracleDriver";
+		
+		
 		try {
 			Class.forName(driver);
 			conn=DriverManager.getConnection(url, id, pw);

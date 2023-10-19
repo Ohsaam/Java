@@ -50,18 +50,16 @@ public class MemberDao {
 	}
 	
 	//성공 1, 실패 -1, 
-	public int save(MemberDTO member) {
+	public int save(Member member) {
 		conn = DBConnection.getConnection();
 		
 		try {
-			pstmt = conn.prepareStatement("insert into member values(member_seq.nextval, ?,?,?,?,?,?,?, sysdate)");
-			pstmt.setString(1, member.getId());
-			pstmt.setString(2, member.getPw());
-			pstmt.setString(3, member.getNickName());
-			pstmt.setString(4, member.getName());
-			pstmt.setString(5, member.getGender());
-			pstmt.setString(6, member.getZipcode());
-			pstmt.setString(7, member.getAddress());
+			pstmt = conn.prepareStatement("insert into member values(member_seq.nextval, ?,?,?,?,?, sysdate)");
+			pstmt.setString(1, member.getUsername());
+			pstmt.setString(2, member.getPassword());
+			pstmt.setString(3, member.getName());
+			pstmt.setString(4, member.getEmail());
+			pstmt.setString(5, member.getPhone());
 			pstmt.executeUpdate(); //return값은 처리된 레코드의 개수
 			return 1;
 		} catch (Exception e) {
@@ -71,21 +69,20 @@ public class MemberDao {
 	}
 	
 	//성공 Vector<Member>, 실패 null
-	public Vector<MemberDTO> findByAll(){
+	public Vector<Member> findByAll(){
 		conn = DBConnection.getConnection();
-		Vector<MemberDTO> members = new Vector<>();
+		Vector<Member> members = new Vector<>();
 		try {
 			pstmt = conn.prepareStatement("select * from member");
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				MemberDTO member = new MemberDTO();
-				member.setId(rs.getString("id"));
-				member.setPw(rs.getString("pw"));
-				member.setNickName(rs.getString("nickName"));
+				Member member = new Member();
+				member.setId(rs.getLong("id"));
+				member.setUsername(rs.getString("username"));
+				member.setPassword(rs.getString("password"));
 				member.setName(rs.getString("name"));
-				member.setGender(rs.getNString("gender"));
-				member.setZipcode(rs.getString("zipcode"));
-				member.setAddress(rs.getString("address"));
+				member.setEmail(rs.getString("email"));
+				member.setPhone(rs.getString("phone"));
 				member.setCreateDate(rs.getTimestamp("createDate"));
 				members.add(member);
 			}
@@ -98,4 +95,6 @@ public class MemberDao {
 		return null;
 	}
 }
+
+
 

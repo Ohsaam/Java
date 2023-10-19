@@ -18,7 +18,7 @@ public class ChatServer extends Thread {
 	//챗서버에 접속해온 사용자에 대한 정보를 담는 벡터 선언임
 	//다수의 클라이언트 요청을 처리하는 서버를 개발할때 사용함
 	List<ChatServerThread> globalList = null;
-	ServerSocket server = null;
+	ServerSocket server = null;//run 메소드 사용함 - 39번라인에서 인스턴스화함- 가게문을 열었음
 	//서버는 들은내용을 말하는 것이다.
 	//실제로 듣고 말하기는 ChatServerThread에서 처리한다.(내가 그렇게 설계했다.)
 	//run메소드에서 서버소켓에 접속해온 클라이언트측의 소켓정보를 받게 되니까 - 메소드 내부에서 사용하려면 전변으로 하자
@@ -34,20 +34,22 @@ public class ChatServer extends Thread {
 	@Override
 	public void run() {//통신에 대한 처리 -  지연, 끊김, 노이즈, 대기
 		//서버에 접속해온 클라이언트 스레드 정보를 관리할 벡터 생성하기 
-		globalList = new Vector<>();
+		globalList = new Vector<>();//ChatServerThread담기 -동시에 3명이 들어온다면
 		boolean isStop = false;
 		try {
+			//만일 3002번 포트를 오라클 서버에서 점유하고 있다면 예외가 발생할 것이다.
 			server = new ServerSocket(3002);
-			jta_log.append("Server Ready.........\n");
+			jta_log.append("Server Ready.........\n");//대기 중 - 손이 오기를 기다린다. - 다음코드가 실행기회를 못갖는다. - 흐름을 방해함 - 장애처리
 			while(!isStop) {
-				//서버소켓에 접속해온 사용자의 소켓정보를 담는다.
-				//socket = server.accept();
-				jta_log.append("client info:"+socket+"\n");			
+				//서버소켓에 접속해온 사용자의 소켓정보를 담는다. - 멍때림
+				//Socket s = new Socket("172.16.2.3", 3002);-  ChatClient - 입장하기
+			    //socket은 ChatServer에서 선언한 전변인데 어떻게 클라이언트 소켓을 주소번지를 쥐고 있는걸까?
+				socket = server.accept();
+				jta_log.append("client info:"+socket+"\n");//여기 소켓은 클라이언트소켓을 쥐고 있다.			
 				//아래에서 this는 ChatServer가리킨다
-				System.out.println(this);
-				ChatServerThread tst = new ChatServerThread(this);
+				System.out.println(this);//왜 파라미터로 넘기지? - socket필요하니까-> oos, ois
+				ChatServerThread tst = new ChatServerThread(this);//this- ChatServer -why?: 협업 - 서버에 접속한 소켓정보를 ChatServerThread에서 사용해야 하니까 this로 넘긴다.
 				tst.start();//ChatServerThread의 run호출된다.
-				break;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -70,8 +72,23 @@ public class ChatServer extends Thread {
 		//같은 메소드라도 처리되는 시간이 다르다- 스케쥴링이 필요함
 		//this.sleep(10000), this.wait(); this.notify();
 		//대기상태에 있는 손님이 있다.
-		cs.initDisplay();
 		cs.start();//여기서 대기탄다 - this.wait(); -> this.notify();잠자는 스레드를 깨운다
+		cs.initDisplay();
 	}
 
 }
+
+/**
+ * 모든 메세지는 서버를 경유하여 받는다. - web개발-> 외부(소셜 로그인, 검색API, 오픈소스) 서비스를 이용하기
+ * 
+ * actionPerformed(말하기-메세지입력-엔터친다) - oos.writeObject();
+ * 
+ * ChatServer - 내안에는 oos, ois가 없다.
+ * ChatServerThread - 생성자(while문 : ChatServerThread(this))로 cs 받음 
+ * 인스턴스화를 하여 받으면 복제본이 생성된다. - 원본이 아니다.
+ * Client소켓생성(ChatServer생성된다.) - oos,ois 생성함 - 듣고 말 할 수 있다.
+ * - client소켓생성(ChatServer) 생성된다.
+ * 
+ * - run() 재정의 : protocol(100|200|500) 찾아내고 
+ */
+

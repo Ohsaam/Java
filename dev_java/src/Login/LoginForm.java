@@ -1,4 +1,4 @@
-package Project;
+package Login;
 
 import java.awt.Font;
 import java.awt.Graphics;
@@ -109,44 +109,39 @@ public class LoginForm extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
+		String username = jtf_id.getText();
+		String password = jpf_pw.getText();
+		MemberDao dao = MemberDao.getInstance();
+		int rs = dao.findByUsernameAndPassword(username, password);
+		/*
+		 * rs에서 에러가 계속적으로 발생함 "PASSWORD": 부적합한 식별자 -> 에러 해결
+		 */
 		if (obj == jbtn_join) {
-			/*
-			 * 회원가입 창을 구현 예정.
-			 * 1. 우선 기존에 회원가입 창을 가지고 있던 MemberShipView을 이용하여 값을 받아옴 -> 해결
-			 * -  이슈 발생 : 디비쪽 우편번호가 입력이 안된다. -> java.sql.SQLException:  --> service들어가서 해결하면 된다.
-			 * 
-			 * 2. 아이디
-			 * -
-			 * 
-			 * 3. 패스워드 
-			 * 
-			 * 
-			 * 4. 
-			 */
+
 			mbv.initDisplay();
 
 		} 
 		else if (obj == jbtn_login) {
-			if ( "".equals(jtf_id.getText()) || "".equals(jpf_pw.getText()) ){
-				JOptionPane.showMessageDialog(this, "아이디와 비밀번호를 확인하세요.", "경고", 2);
-				return;
+			if (rs == 1){
+				JOptionPane.showMessageDialog(null, "로그인 성공");
+				MemberListFrame mlf = new MemberListFrame(username);
+				dispose();
+
 			}
-			try {
-				String mem_id = jtf_id.getText();
-				String mem_pwd = jpf_pw.getText();
-				if (nickName.length()==0) {
-					JOptionPane.showMessageDialog(this, "아이디와 비밀번호를 확인하세요.", "경고", 2);
-					return;
-				} else {
-					JOptionPane.showMessageDialog(this, nickName + "님의 접속을 환영합니다.");
-					this.setVisible(false);
-					jtf_id.setText("");
-					jpf_pw.setText("");
-					//new WaitingRoom(this);
+			else
+			{
+				System.out.println("읽히니?");
+				try{JOptionPane.showMessageDialog(null, "로그인 실패");}
+				catch (Exception e1) {e1.printStackTrace(); }
+					// TODO: handle exception
 				}
-			} catch (Exception ae) { 
-				ae.printStackTrace();
+				
+
+
 			}
+
+				}
+			
 		}
-	}
-}
+	
+

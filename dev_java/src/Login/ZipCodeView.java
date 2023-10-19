@@ -1,4 +1,4 @@
-package Project;
+package Login;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;

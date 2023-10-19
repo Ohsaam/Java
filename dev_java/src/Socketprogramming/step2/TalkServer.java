@@ -20,6 +20,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import atalk.step1.TalkServerThread;
+
 public class TalkServer extends JFrame implements Runnable{
 	TalkServerThread 		tst 		= null;
 	List<TalkServerThread> 	globalList 	= null;

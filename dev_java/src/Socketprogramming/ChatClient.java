@@ -20,7 +20,6 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import achat.step2.TalkClientThread;
 //사용자가 하고싶은 말을 전달하는 클래스 설계이다.
 public class ChatClient extends JFrame implements ActionListener{
 	
@@ -52,14 +51,14 @@ public class ChatClient extends JFrame implements ActionListener{
 		public void init() {
 			try {
 				//서버측의 ip주소 작성하기
-				socket = new Socket("127.0.0.1",3002);
+				socket = new Socket("127.0.0.1",3002);//ServerSocket -> socket -> C.S.T client
 				oos = new ObjectOutputStream(socket.getOutputStream());
 				ois = new ObjectInputStream(socket.getInputStream());
 				//initDisplay에서 닉네임이 결정된 후 init메소드가 호출되므로
 				//서버에게 내가 입장한 사실을 알린다.(말하기)
-				oos.writeObject(100+"#"+nickName);
+				oos.writeObject(100+"|"+nickName);//말하기 시전 - 서버한테 - 듣고 말하기
 				//서버에 말을 한 후 들을 준비를 한다.
-				ChatClientThread tct = new ChatClientThread(this);
+				ChatClientThread tct = new ChatClientThread(this);//아직 일이없다
 				tct.start();
 			} catch (Exception e) {
 				//예외가 발생했을 때 직접적인 원인되는 클래스명 출력하기
@@ -100,7 +99,10 @@ public class ChatClient extends JFrame implements ActionListener{
 	
 	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		JFrame.setDefaultLookAndFeelDecorated(true);
+		ChatClient cc = new ChatClient();
+		cc.initDisplay();
+		cc.init();
 
 	}
 	@Override
@@ -110,3 +112,4 @@ public class ChatClient extends JFrame implements ActionListener{
 	}
 
 }
+
