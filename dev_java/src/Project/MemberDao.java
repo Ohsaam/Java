@@ -54,7 +54,7 @@ public class MemberDao {
 		conn = DBConnection.getConnection();
 		
 		try {
-			pstmt = conn.prepareStatement("insert into member values(member_seq.nextval, ?,?,?,?,?, sysdate)");
+			pstmt = conn.prepareStatement("insert into member values(member_seq.nextval, ?,?,?,?,?,?,?, sysdate)");
 			pstmt.setString(1, member.getId());
 			pstmt.setString(2, member.getPw());
 			pstmt.setString(3, member.getNickName());
@@ -62,7 +62,6 @@ public class MemberDao {
 			pstmt.setString(5, member.getGender());
 			pstmt.setString(6, member.getZipcode());
 			pstmt.setString(7, member.getAddress());
-			pstmt.setTimestamp(8, member.getCreateDate());
 			pstmt.executeUpdate(); //return값은 처리된 레코드의 개수
 			return 1;
 		} catch (Exception e) {
@@ -82,11 +81,11 @@ public class MemberDao {
 				MemberDTO member = new MemberDTO();
 				member.setId(rs.getString("id"));
 				member.setPw(rs.getString("pw"));
-				member.setNickName(rs.getString("NickName"));
+				member.setNickName(rs.getString("nickName"));
 				member.setName(rs.getString("name"));
-				member.setGender(rs.getNString("Gender"));
-				member.setZipcode(rs.getString("Zipcode"));
-				member.setAddress(rs.getString("Address"));
+				member.setGender(rs.getNString("gender"));
+				member.setZipcode(rs.getString("zipcode"));
+				member.setAddress(rs.getString("address"));
 				member.setCreateDate(rs.getTimestamp("createDate"));
 				members.add(member);
 			}

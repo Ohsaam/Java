@@ -112,43 +112,65 @@ public class MemberShipView extends JDialog implements ActionListener{
     
     public MemberShipView()
     {
-        jbtn_ins.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Object obj = e.getSource();
-				MemberDTO member = new MemberDTO();
-				member.setId(jtf_id.getText());
-				member.setPw(jtf_pw.getText());
-				member.setNickName(jtf_nickName.getText());
-				member.setGender(jlb_gender.getText());
-				member.setZipcode(jtf_zipcode.getText());
-				member.setAddress(jtf_address.getText());
-				
-				MemberDao dao = MemberDao.getInstance();
-				int result = dao.save(member);
-			
-				if(result == 1) {
-					JOptionPane.showMessageDialog(null, "회원가입이 완료되었습니다.");
-					dispose();
-				}else {
-					JOptionPane.showMessageDialog(null, "회원가입이 실패하였습니다.");
-					dispose();
-				}	
-			}
-		});
-
-	}
+    	
+    }
+//    public MemberShipView()
+//    {
+//        jbtn_ins.addActionListener(new ActionListener() {
+//			
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				Object obj = e.getSource();
+//				MemberDTO member = new MemberDTO();
+//				member.setId(jtf_id.getText());
+//				member.setPw(jtf_pw.getText());
+//				member.setNickName(jtf_nickName.getText());
+//				member.setGender(jlb_gender.getText());
+//				member.setZipcode(jtf_zipcode.getText());
+//				member.setAddress(jtf_address.getText());
+//				
+//				MemberDao dao = MemberDao.getInstance();
+//				int result = dao.save(member);
+//			
+//				if(result == 1) {
+//					JOptionPane.showMessageDialog(null, "회원가입이 완료되었습니다.");
+//					dispose();
+//				}else {
+//					JOptionPane.showMessageDialog(null, "회원가입이 실패하였습니다.");
+//					dispose();
+//				}	
+//			}
+//		});
+//
+//	}
     
     @Override
 	public void actionPerformed(ActionEvent e) {
-    	Object obj = e.getSource();
+    	
+		Object obj = e.getSource();
+		MemberDTO member = new MemberDTO();
+		member.setId(jtf_id.getText());
+		member.setPw(jtf_pw.getText());
+		member.setNickName(jtf_nickName.getText());
+		member.setGender(jlb_gender.getText());
+		member.setZipcode(jtf_zipcode.getText());
+		member.setAddress(jtf_address.getText());
+		
+		MemberDao dao = MemberDao.getInstance();
+		int result = dao.save(member);
+		
     	if(obj == jbtn_zipcode) 
     	{
     		zv.initDisplay();
     	}
+    	else if(result == 1) {
+			JOptionPane.showMessageDialog(null, "회원가입이 완료되었습니다.");
+			dispose();
+		}else {
+			JOptionPane.showMessageDialog(null, "회원가입이 실패하였습니다.");
+			dispose();
 	}
-}
+}}
 
 
     

@@ -8,9 +8,9 @@ import java.sql.ResultSet;
 public class DBConnection {
 	public static Connection getConnection() {
 		Connection conn=null;
-		String url="jdbc:oracle:thin:@localhost:1521:xe";
-		String id="cos";
-		String pw="bitc5600";
+		String url="jdbc:oracle:thin:@127.0.0.1:1521:orcl11";
+		String id="scott";
+		String pw="tiger";
 		String driver="oracle.jdbc.driver.OracleDriver";
 		try {
 			Class.forName(driver);

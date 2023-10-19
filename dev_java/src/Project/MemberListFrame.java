@@ -20,12 +20,12 @@ import javax.swing.table.DefaultTableModel;
 
 public class MemberListFrame extends JFrame {
 
+	
 	private JPanel contentPane;
 	private JTable table;
 	private JLabel lbTitle;
 	private JButton logoutBtn;
 	private DefaultTableModel tableModel;
-	
 	/**
 	 * Launch the application.
 	 */
@@ -43,6 +43,7 @@ public class MemberListFrame extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @param memberShipView 
 	 */
 	public MemberListFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
