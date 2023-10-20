@@ -4,31 +4,34 @@ public class MemberDTO {
 	private static final int MINMUM_INPUT = 1;
 	private String username;
 	private String password;
+	private String nickname;
 	
 	public MemberDTO()
 	{
 		
 	}
-	public MemberDTO(String username, String password)
+	public MemberDTO(String username, String password,String nickname)
 	{
 		this.username = username;
 		this.password = password;
+		this.nickname = nickname;
 	}
-
+	
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
 	public String getUsername() {
 		return username;
 	}
 
 	public void setUsername(String username) {
-		if(username.length() < MINMUM_INPUT)
-		{
-			System.out.println("1글자 이상 입력하세요");
-			return;
-		}
-		else
-		{
+		System.out.println("setUsername 오류");
+
 			this.username = username;
-		}
+
 	}
 
 	public String getPassword() {
@@ -36,15 +39,9 @@ public class MemberDTO {
 	}
 
 	public void setPassword(String password) {
-		if(password.length() < MINMUM_INPUT)
-		{
-			System.out.println("1글자 이상 입력하세요");
-			return;
-		}
-		else
-		{
+
 			this.password = password;
-		}
+
 	}
 	
 	

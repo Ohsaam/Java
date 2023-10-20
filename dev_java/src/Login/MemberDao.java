@@ -54,9 +54,10 @@ public class MemberDao {
 		conn = DBConnection.getConnection();
 		
 		try {
-			pstmt = conn.prepareStatement("insert into member values(?,?)");
+			pstmt = conn.prepareStatement("insert into member values(?,?,?)");
 			pstmt.setString(1, member.getUsername());
 			pstmt.setString(2, member.getPassword());
+			pstmt.setString(3, member.getNickname());
 
 			pstmt.executeUpdate(); //return값은 처리된 레코드의 개수
 			return 1;
@@ -77,6 +78,7 @@ public class MemberDao {
 				MemberDTO member = new MemberDTO();
 				member.setUsername(rs.getString("username"));
 				member.setPassword(rs.getString("password"));
+				member.setNickname(rs.getString("nickname"));
 
 				members.add(member);
 			}
@@ -89,4 +91,3 @@ public class MemberDao {
 		return null;
 	}
 }
-

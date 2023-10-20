@@ -53,7 +53,7 @@ public class MemberListFrame extends JFrame implements ActionListener{
 	}
 
 	/**
-	 * Create the frame.
+	 * 이 쪽이 문제다. String username이 나왔는데, 이 부분이 nullPointException이 나오는 부분이다.
 	 * @param memberShipView 
 	 */
 	public MemberListFrame(String username) {
@@ -84,6 +84,7 @@ public class MemberListFrame extends JFrame implements ActionListener{
 			Vector<Object> row = new Vector<>();
 			row.addElement(members.get(i).getUsername());
 			row.addElement(members.get(i).getPassword());
+			row.addElement(members.get(i).getNickname());
 			tableModel.addRow(row);
 		}
 
@@ -129,4 +130,3 @@ public class MemberListFrame extends JFrame implements ActionListener{
 	}
 
 }
-

@@ -28,8 +28,8 @@ public class LoginForm extends JFrame implements ActionListener {
 	JLabel jlb_pw = new JLabel("패스워드");
 
 	Font jl_font = new Font("휴먼매직체", Font.BOLD, 17);
-	JTextField jtf_id = new JTextField("test");
-	JPasswordField jpf_pw = new JPasswordField("123");
+	JTextField jtf_id = new JTextField("");
+	JPasswordField jpf_pw = new JPasswordField("");
 
 	JButton jbtn_login = new JButton(
 			new ImageIcon(imgPath+"login.png"));

@@ -10,6 +10,7 @@ public class Sample {
 		Vector<String> memberheader = new Vector<>();
 		memberheader.add("ID");
 		memberheader.add("PassWord");
+		memberheader.add("NickName");
 
 		return memberheader;
 	}
@@ -24,8 +25,8 @@ public class Sample {
 	 */
 	public static Vector<MemberDTO> getMembers(){
 		Vector<MemberDTO> members = new Vector<>();
-		members.add(new MemberDTO("qlwb11", "12345"));
-		members.add(new MemberDTO("qlwb11", "12345"));
+		members.add(new MemberDTO("qlwb11", "12345", "Ohsaam"));
+		members.add(new MemberDTO("qlwb11", "12345","Ohsaam"));
 		return members;
 		
 	
@@ -40,4 +41,3 @@ public class Sample {
 	
 	
 	
-

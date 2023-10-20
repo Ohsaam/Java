@@ -190,6 +190,7 @@ public class MemberShipView extends JDialog implements ActionListener{
         MemberDTO member = new MemberDTO();
         member.setUsername(jtf_id.getText());
         member.setPassword(jpf_pw.getText());
+        member.setNickname(jtf_nickName.getText());
         MemberDao dao = MemberDao.getInstance();
         int rs = dao.save(member);
         
@@ -216,4 +217,3 @@ public class MemberShipView extends JDialog implements ActionListener{
         }
     }}
     
-
